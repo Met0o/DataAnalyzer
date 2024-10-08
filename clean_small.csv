@@ -1,0 +1,1855 @@
+Summary,Description
+Unable to subscribe to Microservices in newly created tenants,"We have created couple of sub-tenants and subscribing to microservices which are working fine in another (old) sub-tenants, but not in new sub-tenants. 
+
+new Tenant: [https://pcd.sandboxiot.hillrom.com/] 
+
+Here is the issue we noticed on the status tab: 
+
+0/7 nodes are available: 2 Insufficient cpu, 2 node(s) were unschedulable, 3 node(s) had taint {[node-role.kubernetes.io/master:|http://node-role.kubernetes.io/master:] }, that the pod didn't tolerate"
+Hilti: activation of Notification 2.0 on their environment.,"Hilti Dedicated Environment 
+
+Customer would like Notifications 2.0 activated on their environment."
+Update custom domain for https://factorypuls.emea.cumulocity.com and add the license,"*Affected system* 
+
+Instance: EMEA 
+Tenant URL: https://factorypuls.emea.cumulocity.com/ 
+
+*Description of the Problem:* 
+
+Customer wants to migrate their master tenant DNS to a custom domain name and implement DNS masking. 
+
+Domain Name: FactoryVisual.eu 
+Tenant URL: https://factorypuls.emea.cumulocity.com/ 
+
+Please find the .pem and .pkcs#7 files attached. 
+[^PEM files_.factoryvisual.eu.zip] 
+[^PKCS 7 files_.factoryvisual.eu.zip] 
+
+They have not provided .PKCS #12 files despite multiple requests and seems customer ended up buying from providers who are too reluctant to provide .PKCS#12 files. 
+
+Please upload the certs and activate the domain and then add the license for it in EMEA instance."
+"Delete incorrect ""waiting in register"" devices","Customer accidently registered devices via bulk registration without using a semicolon in the description. This has resulted in 10x devices being registered with forward slashes in the ID’s rather than nesting the devices into groups. 
+
+These devices now cannot be deleted as a forward slash in the delete command is not accepted. 
+
+Tenant: onsite 
+
+Environment: production 
+
+Please see attachment for more information 
+
+----------------------------------------------------- 
+
+Had a discussion in the Support chat, this can be discussed with Jakub...."
+Please update cumulocity.com core to 10.18.0.320,"We have 3 customers with the same issue, which is fixed in core 10.18.0.320: 
+Issue: their cockpit widgets don't work since last update mid of December 
+customers: Eaton, Utonomy and Möbus Umweltschutz GmbH 
+All have subtenants in cumulocity.com 
+All customers ask for an update of cumulocity.com core to 10.18.0.320 
+https://getsupport.softwareag.com/browse/SI-550704  
+https://getsupport.softwareag.com/browse/SI-548223  
+https://getsupport.softwareag.com/browse/SI-549484  
+
+Please let me know when this can be done."
+CLONE - [BD][Kaak Bakeware] Alarms updated but hidden,"Hello R&D, 
+
+maybe it is a misunderstanding by me and the customer. Else we might have an UI issue here. 
+
+The image titled alarms you can see an overview of the alarm of a tenant. As you can see no alarms newer then 28 June is shown. The screenshot is from 01.07.2021, no wo worries about alarm newer than 01.07.2021. 
+
+The image titled usage shows management overview of the tenant and shows over 8000 alarms being updated. This view is set to only show data of 01.07.21. 
+
+The possible issue is that the alarms shown as updated are not visible. Even the count if an alarm was raised several times is not matching those numbers. So where can these alarms be found? Is this a bug or a misunderstanding? 
+
+  
+
+For OPS team 
+
+Customer does not know from where large amounts of alarm updates are coming and what is their source 
+Could you please provide some logs regarding alarm creation/updating or respecting audit logs, also logs from smartrules would be great"
+nifprd environment issues: suspected K8s worker node 1 problems,"In the last days we are having some odd issues with some of heavy the microservices that run on nxworkerprd01v (Kubernetes worker 01 on prod). 
+When I had Event processing running there is was running slowly and or refused to start properly. Having it on any other worker node made it run normally. Today we found that cca-dashboard working on worker 01 is causing end-users issues with performance. Restart of the pod on other node solved the issue. 
+
+We have a bunch of other (much lighter and less critical) MSes running on nxworkerprd01v but if any of those heavy MSes will be started here this will cause trouble. 
+
+I suggest to: 
+# cordon nxworkerprd01v temporarily until we will find out what is the issue 
+# check if you can see any suspicious issues with the VM running the worker node (down to system logs). 
+We are issuing a parallel ticket to PlusServer to take a closer look at the VM subsystem. 
+If required feel free to drain the node and restart - it should not cause too much trouble to the end users in this case."
+Request to delete subtenants,"Information from the customer (Eppendorf): 
+
+  
+
+We created subtenants for testing purposes that are no longer needed. As there is no functionality to delete them by our own, we kindly ask to remove the subtenants for us. They are located in different enterprise tenants and are all suspended. 
+
+The list is attached as Excel file. If you need the list in a different format, or if you have further questions, please let me know. 
+
+-------- 
+
+Thanks, 
+
+Kent"
+"Schindler QAL: Can't logon to Dremio UI anymore / ""No space left on device""","as of today, 2024-05-07, people are no longer able to log onto the Dremio UI. It shows “Invalid username or password”. 
+
+All corresponding offloading jobs in DataHub fail, due to: 
+{noformat} 
+Failure in connecting to Dremio: cdjd.com.dremio.exec.rpc.RpcException: HANDSHAKE_VALIDATION : Status: UNKNOWN_FAILURE, Error Id: 8f89ed48-f80e-47b4-8703-3f856a0f05bf, Error message: org.rocksdb.RocksDBException: While appending to file: /opt/dremio/data/db/catalog/068906.log: No space left on device{noformat} 
+So, it appears that we ran out of space for Dremio? 
+
+Is this the root cause? How can it be fixed? This is currently blocking our development."
+Strange 502 Bad Gateway Error from a couple of LoRaWAN devices,"*Necessary iTrac information* 
+
+*Cumulocity.com  (In Grafana terms it is _LokiEU-DS-02    / {cumulocity_environment=""cumulocity-multinode-central-1-prod""}_* 
+
+{*}Affected tenant{*}{*}{*} 
+
+Loriot-agent 1017.0.289 is subcribed from the Enterprise tenant   t326439018  and from the subtenant t1105226074    
+
+Enterprise Tenant? Yes *t326439018*  
+System accessible by R&D? Yes  
+
+*Issue associated  microservice* 
+
+*Loriot-agent 1017.0.289 is subcribed from the Enterprise tenant   t326439018  and from the subtenant t1105226074*   ** 
+* (URL in ""Own applications""): [http://localhost:8111/apps/administration/index.html#/microservices/40366/properties]   
+
+Current instance:  loriot-agent-scope-management-deployment-7655bd585b-flkjr 
+* Cumulocity product microservice. Version  *Loriot-agent 1017.0.289*   PROVIDER   Name Cumulocity GmbH 
+
+  
+
+*Time periods error was observed:* *The given time stamps in the description are from Friday (2023-10-20 14:45:55.781 CUMULOCITY ... )* *and customer mentions*   *from the  _Loriot logs:_ ( 2023-10-19 14:33:02.320 to 2023-10-19 20:57:46.732 ) .* 
+
+  
+
+Please take a look at the Error Messages. 
+{noformat} 
+2023-10-20 14:45:55.781 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""gw"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D131F"",""seqno"":409541,""ts"":1697805954539,""fcnt"":0,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:45:55.586 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""rx"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D131F"",""seqno"":409541,""ts"":1697805954539,""fcnt"":0,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:45:21.984 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""gw"",""url"":""https://traptice.wains.info/"",""deveui"":""647FDA0000011F99"",""seqno"":409540,""ts"":1697805920748,""fcnt"":3,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:45:21.793 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""rx"",""url"":""https://traptice.wains.info/"",""deveui"":""647FDA0000011F99"",""seqno"":409540,""ts"":1697805920748,""fcnt"":3,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:29:12.377 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""gw"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1601"",""seqno"":409531,""ts"":1697804951130,""fcnt"":0,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:29:12.174 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""rx"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1601"",""seqno"":409531,""ts"":1697804951130,""fcnt"":0,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:28:05.845 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""gw"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1607"",""seqno"":409530,""ts"":1697804884586,""fcnt"":0,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:28:05.639 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""rx"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1607"",""seqno"":409530,""ts"":1697804884586,""fcnt"":0,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:11:52.704 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""gw"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1610"",""seqno"":409524,""ts"":1697803911468,""fcnt"":7,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:11:52.507 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""rx"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1610"",""seqno"":409524,""ts"":1697803911468,""fcnt"":7,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:10:20.497 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""gw"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1089"",""seqno"":409523,""ts"":1697803819259,""fcnt"":0,""err"":""Request failed with status code 502"",""data"":{""statusCode"":null},""errName"":""Error"",""instance"":""out-1"" 
+2023-10-20 14:10:20.333 CUMULOCITY Error POSTing message | ""appid"":BE010006,""cmd"":""rx"",""url"":""https://traptice.wains.info/"",""deveui"":""8C1F64FFFE3D1089"",""seqno"":40{noformat} 
+  
+
+{color:#172b4d}User *Kotorowicz, Jakub* commented in iTrac 18771{color} 
+
+{color:#172b4d}Please ask Ops responsible for this system for taking 
+thread-dump and Heap-dump (second one when microservice is close to the limits (eg. 80%+).{color} 
+
+{color:#172b4d}Heap-dump analysis is a standard procedure when we observe memory leak, and collection should also be standard when Ops create such tickets. Please also be aware that taking heap-dump may make agent not responsive for some time, since it is ""stop the world"" operation. {color}**"
+tenant migration CEP Esper -> Apama,"similar to https://itrac.eur.ad.sag/browse/CSOIOT-542 supported by Bartosz Janus I got a 2nd task for 65 tenants on cumulocity.com to: 
+- unsubscribe CEP 
+- subscribe Apama-starter 
+
+This task is approved by Aaron Kreis and checked with the tenant owners. So the administrative check is finished. 
+The technical task can be done by a Postman script and I can take over it. 
+
+I tested this script successful on management.adamos-preprod.com. 
+
+Now my idea is to do the job on e.g. 5 real tenants on cumulocity.com by script under supervision of Ops. I want to avoid impact on productive instances. If this works fine, I plan to do it the other 85 tenants. 
+
+Whom from Ops can do this? Then I create an appointment with this colleague. 
+
+Detailed steps: 
+- output a list of all tenants with domain, url and status 
+- start the script which unsubscribes CEP Esper and subscribes Apama-starter 
+- output again the list of all tenants 
+- check success 
+
+Tenant list: 
+https://sagportal.sharepoint.com/:x:/r/sites/msteams_c9d793/_layouts/15/Doc.aspx?sourcedoc=%7Bc6456054-2a3f-4cdf-911a-e50cb1c87d7e%7D&action=edit&activeCell=%27High%20prio%20customers%27!B6&wdinitialsession=c3132708-852c-4fd1-ab45-d203ff131760&wdrldsc=8&wdrldc=1&wdrldr=AccessTokenExpiredWarning%2CRefreshingExpiredAccessT&cid=c9828697-43cb-45fe-bd52-1a5f48ca10d0&CID=90EB26F1-1D30-4A99-A743-AD3FB84C0A38 
+
+tab ""tenant domain and IDs"" 
+column ""switch only to starter"" = Starter"
+Delete the tenants from Eppendorf on EMEA instance,"*Affected system* 
+
+Instance: EMEA 
+
+- tenantID: t285471325 
+URL: 5ae0413372c1439eb1df408582e195bf.visionizedigitallabspace.eppendorf.com 
+- tenantID: t307040180 
+URL: 5236ba242ab240649a87d3083a4230a0.visionizedigitallabspace.eppendorf.com 
+
+
+*Description of the Problem:* 
+
+Customer from Eppendorf has requested to delete these two suspended tenants: 
+
+- tenantID: t285471325 
+URL: 5ae0413372c1439eb1df408582e195bf.visionizedigitallabspace.eppendorf.com 
+- tenantID: t307040180 
+URL: 5236ba242ab240649a87d3083a4230a0.visionizedigitallabspace.eppendorf.com"
+[DT IoT] Not able to add additional IP ranges in cc_values,"Hi Ops, 
+
+I hope you can help me with a configuration issue on DT environment. 
+
+In their chef env file they have included the following block: 
+{code:java} 
+  ""cumulocity-core"" => { 
+   ""cc_values"" => { 
+     ""allowedBlocksExtra"" => ['10.3.3.0/24', '10.30.0.0/16'] 
+   },{code} 
+Now what they expect is, after chef-clien run on the kubemaster node it will generate the cc_values.yml and those 2 new IP ranges will included in the block: 
+{code:java} 
+allowedBlocks: 
+- 10.3.2.0/24 
+- 10.3.201.0/24{code} 
+and least that is what the recepie ..cc_values_gen.rb suggests 
+{code:java} 
+node.default[""cumulocity-core""][""cc_values""]['allowedBlocks'] = allowed_blocks + node.default[""cumulocity-core""][""cc_values""]['allowedBlocksExtra']{code} 
+However the result is that these 2 new IP ranges are included in the cc_values.yml file, but in another place: 
+{code:java} 
+allowedBlocksExtra: 
+- 10.3.3.0/24 
+- 10.30.0.0/16{code} 
+And after helm deployment these new IP ranges are not updated anywhere in the pods 
+{code:java} 
+sh-4.2# cat allow.d-c8y-all.conf 
+allow 10.3.2.0/24; 
+allow 10.3.201.0/24; 
+sh-4.2#{code} 
+  
+
+And based on the helm chart ( ..\helm_charts\nginx\allow.d-c8y-all.conf) its correct because this allowedBlocksExtra is not used: 
+
+  
+  
+{code:java} 
+{{- range .Values.allowedBlocks }} allow {{.}}; {{- end }}{code} 
+  
+So  either the helm chart should be updated to include the allowedBlocksExtra  or the generation of the cc_values.yml from chef should be fixed that it include the IP ranges in the allowedBlocks. ........."
+need user for apj.cumulocity.com,"Please create a admin user with name ""christian.herzog@softwareag.com"" on apj.cumulocity.com
+and send me a password reset email."
+Provision new enterprise tenant on *.iot.hillrom.com,"Please provision a new enterprise tenant on *.iot.hillrom.com. 
+
+  
+
+Tenant Name:   *ihs981901-poc-master.iot.hillrom.com* 
+
+Adminstrator:  *[steven_morrow@baxter.com|mailto:steven_morrow@baxter.com]* 
+
+  
+
+Unfortunately, I don't have permissions to create a new tenant on the environment. 
+
+  
+
+Please let me know if you have any questions or need more information. 
+
+  
+
+Thanks, 
+
+Kent"
+"issues with ""apama-ctrl-1c-4g"" on https://raimondi.ttcontrol.cloud","Apama works only for 50% of the cases fine. 
+The production tenant: 
+* url: [https://raimondi.ttcontrol.cloud|https://raimondi.ttcontrol.cloud/] 
+* tenantId: t5243111 
+
+Attached the log screenshot. 
+
+Chris Reed and Korbinian Butz (Consulting) reported: 
+
+Investigation with Korbinian showed evidence that some Measurements, Alarm updates were not being delivered to apama-ctrl - fairly random which were/ weren't. 
+
+apama-ctrl's logging included ProxyStatus : 
+
+192.168.7.0  - started 29 (relatively static - only changing by 1 a minute or less) 
+192.168.5.0 - started 13213 (constantly receiving a trickle of new data) 
+
+This suggests there are only two core nodes, and one is sending next to no updates to /service/cep/events .  This suggests there's a problem with one of the core nodes (and also, please confirm that there are only 2 core nodes; are there others that haven't sent anything to apama-ctrl?)."
+Install cloud-remote-access,"Please install cloud-remote-access application in Sony environments below: 
+
+1)  [https://management.jp.ss.c8y.io/apps/administration/index.html#/applications|https://urldefense.com/v3/__https://eur04.safelinks.protection.outlook.com/?url=https*3A*2F*2Fmanagement.jp.ss.c8y.io*2Fapps*2Fadministration*2Findex.html*23*2Fapplications&data=04*7C01*7CAsit.Som*40softwareag.com*7Ca4a652342e0f498e5e1408da1ba58d55*7Cd9662eb9ad984e74a8a204ed5d544db6*7C1*7C0*7C637852695137310040*7CUnknown*7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0*3D*7C3000&sdata=YwTLOMWmWVWqtQrHTm1bA*2FhamqmYEjW19lf6iAJGkK8*3D&reserved=0__;JSUlJSUlJSUlJSUlJSUlJSUlJSUlJQ!!JmoZiZGBv3RvKRSx!qD9zEK8H7sZhnl7ueeYYZIfsijRqi5opjlHjt3Ehnk-b-hAWriU3-DB4PACSFkeRNxA$]  
+
+2)  [https://management.na.ss.c8y.io/apps/administration/index.html#/applications|https://urldefense.com/v3/__https://eur04.safelinks.protection.outlook.com/?url=https*3A*2F*2Fmanagement.na.ss.c8y.io*2Fapps*2Fadministration*2Findex.html*23*2Fapplications&data=04*7C01*7CAsit.Som*40softwareag.com*7Ca4a652342e0f498e5e1408da1ba58d55*7Cd9662eb9ad984e74a8a204ed5d544db6*7C1*7C0*7C637852695137310040*7CUnknown*7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0*3D*7C3000&sdata=uR1czFL8Mtv1oeKTSTjm2cLfsfv4JreuxUyRy0P*2FOzI*3D&reserved=0__;JSUlJSUlJSUlJSUlJSUlJSUlJSUlJQ!!JmoZiZGBv3RvKRSx!qD9zEK8H7sZhnl7ueeYYZIfsijRqi5opjlHjt3Ehnk-b-hAWriU3-DB4PACSctAQnzM$] 
+
+ "
+"CLONE - Reading Objects in C8Y is going to pending state when FW_Size_15MB Download fails with setting of ""lwm2mRequestTimeout=900000"" in C8Y",We need logs from ITRON August 21st to investigate the parent issue.
+"""self"" fragment incorrectly reported as http (should be https) from inside the k8s cluster","While testing the C8y 1013 on [nordex.nifdev.nordex-online.com|http://nordex.nifdev.nordex-online.com/] platform we found odd behavior that is affecting our services. FYI: it works fine on 1009 and worked fine on nifdev 1009. 
+
+Microservice running outside of the K8s is talking to inventory trying to get any managed object. It receives proper “self” fragment with https in it. 
+
+The same microservice running inside the platform's k8s is doing the same request with the same credentials - the “self” field is provided with URL that contains only http (without s). 
+
+Issue is critical for Nx as some microservices are extracting that self field and pass it to other microservices causing them to fail. 
+
+In the attached image you have example prepared by Arkadiusz Bieniak while testing 1013 installed similar way as on nifdev and you can see the issue is there as well. 
+
+This might be a planned change in the API but we need a confirmation as this is a breaking change for us and we need to modify our code for 1013 and/or start detecting revision of C8y on the MS level (as we share MSes between different revisions on C8y in IoT and Edge platforms)."
+Plattform down - 502 Bad Gateway,"*Necessary iTrac information*  
+*Affected system* 
+  **   *(management.iot.a1.digital)* 
+
+lease suspend tenant → t1573623 
+
+Vienna (DR Frankfurt) 
+
+*Affected tenant* 
+
+Tenant: ___t1573623______________ OR System-wide issue. 
+** 
+
+*Description of the Problem:* 
+
+Hi guys, 
+due to many api requests our platform crashes (management.iot.a1.digital) 
+
+Please suspend tenant → t1573623 
+
+Boyan K. has prepared 2 additional cores which have to be activated. 
+
+Please proceed with activation. 
+
+Thx, 
+
+Dejvid"
+[Hilti] Verify Kubernetes Cluster Health,"*Affected system""* 
+
+Hilti Prod: https://management.dmp.hilti.com/ 
+
+*Description of the Problem:* 
+
++This is a request from CSM '[~olm] for Hilti's purpose.+ 
+
+FYI, I provide regular Gafana KPI figures of Hilti’s custom microservices to the customer. I have seen that there are not KPIs of all custom microservices before September 12th (2023) available anymore and I have received a confirmation from Hilti that majority of services were up and running before this date. Therefore we presume a restart of this K8S cluster that deleted all logs.. 
+
+Could you please check K8S health for Hilti environment and update? 
+
+The customer wanted to know the root cause this lack of log entries before September 12.{*}{*}{*}{*}"
+BSCI: Certificate Renewal Request,"From customer Boston Scientific.... 
+
+  
+
+""I have received our updated certificates for prod and non prod. I would like to schedule our non prod instance to have it’s certs renewed this Wednesday, 2/7/24 and our prod instance to be renewed on Thursday 2/8/24. This will give us a 24 hour testing window to ensure no issues happen. 
+
+I have provided the certificates for both environments"" 
+
+  
+
+Can this be implemented for them at the requested dates?"
+Solenis: Need SMS GW new version uploaded,"Can you please upload a new version of SMS Gateway to the Solenis dev tenant (https://dev.iot.solenis.com/) for testing purposes? 
+
+They have asked for Twillio implementation and this has been now done for 10.17, but we agreed that Solenis gets a beta version as soon as it is available and through QA process. 
+
+Because zip snapshot is 175MB, here is a sharepoint link to download: 
+
+[https://sagportal-my.sharepoint.com/:f:/g/personal/myp_softwareag_com/EpEbmbWrl9hJp6taW2ooX88B9ca0LdoIXcNYt_6dwUcRuw?e=QVByvY] 
+
+  
+
+zip can also be downloaded from draccoon here:  [https://transfer.softwareag.com/node/277197] 
+
+  
+
+Not sure if this can just be loaded via Administration > Ecosystem > Microservices... 
+
+  
+
+Let me know if you have any questions. 
+
+  
+
+Thanks, 
+
+Kent 
+
+ "
+Delete picomagcloudtest.autosen.cloud on c8y production,"Please delete tenant ** picomagcloudtest.autosen.cloud on c8y production, id picomagcloudtest. 
+
+It is no longer needed. 
+
+id is picomagcloudtest. 
+
+  
+
+!image-2023-03-24-11-59-42-250.png!"
+Tenancy DELETE,"Request from MIOT: 
+
+Please delete the “celcom.iot.telstra.com” sub-tenant from https://miotprod.iot.telstra.com/ 
+
+Please note this sub-tenant has already been suspended. 
+
+"
+Database backup,"Customer needs backup copy of database. 
+
+  
+
+Same request as [https://itrac.eur.ad.sag/browse/CSOIOT-3834]"
+[Solenis] Upgrade the Dev Instance to 10.18,"*Affected system:* 
+
+Solenis Dev Environment: https://management.iot-dev.solenis.com 
+Current version: 10.17.441 
+
+*Description of the Problem:* 
+
+Customer from Solenis has requested an upgrade for their development instance to version 10.18. 
+Currently, they are using version 10.17.441 
+
+*.iot-dev.solenis.com"
+Microservice issues: bad gateway,"Hi Ops! 
+
+This morning Kemin noticed some strange behavior in their microservices. After monitoring some time, they decided to restart one of them. The result is even worse than before. Their Apama microservice (subscribed on two subtenants) only stared on one of the two subtenants. They are getting 502 Bad gateway errors when opening the status page of the microservice on the subtenant (see screenshot). 
+
+
+On the other subtenant, they see in the logs a lot of GET errors. Probably also because of 502 Bad gateway issue (see attached logs). 
+
+Also, since last week, they have a JAVA microservice (written by SAG) that does not show any logs (says it has no instance running), but there is data coming in from that microservice (see screenshot “Ewon”). 
+
+Was there any changes over the last days on the [cumulocity.com|http://cumulocity.com/] environment? Are there currently any known issues? 
+
+Customer considers this as a CRISIS!"
+Trying to offload inventory collection and getting error,"Customer is encountering a limit exceeded in Dremio on the Flexco staging instance. 
+
+t86675 staging.flexcoelevatedashboard.com 
+
+Error: 
+
+Caused by: java.sql.SQLException: UNSUPPORTED_OPERATION ERROR: Field '{*}contents' exceeds the size limit of 32000 bytes.{*} 
+
+  
+
+Similar issues with other customers have been resolved in iTracs: 
+
+[CSOIOT-4160|https://itrac.eur.ad.sag/browse/CSOIOT-4160] 
+
+[CSOIOT-921|https://itrac.eur.ad.sag/browse/CSOIOT-921] 
+
+  
+
+--------------------------------------------------------- 
+The workaround for this issue is the following: 
+
+change that maximum value. 
+- Log in to Dremio as admin. 
+- go to the ?Admin? menu, then ?Support? 
+- add the key ?limits.single_field_size_bytes"" and set it to 500000 
+---------------------------------- 
+
+  
+
+ "
+Connection Error on hosted Microservices,"On customers productive system they have a connection error on the hostet Microservices.
+According to their logs, the outage has been since midnight.
+
+This is very critical, but not yet CRISIS"
+Microservice not running anymore,"our microservice pending-assignment in the tenant dmgmoridevices.adamos.com is not running anymore since April 9th. We did not touch/change anything related to this microservice. 
+
+Would you please check? 
+
+{color:#1f497d}The cumulocity.json file defines a memory limit of 2G for this microservice. Therefore I doubt that we have a memory issue. The service itself also idles more or less most of the time.{color} 
+
+{color:#1f497d}Is this maybe related tot he last platform updates? 
+
+Comment support: 
+I can confirm that the MS is shown as {color}Unhealthy 
+
+{color:#1f497d} 
+Tenant ID: dmgmoridevices[ 
+|https://dmgmoridevices.adamos.com/apps/administration/index.html#/]Microservice Pending-assignment 
+[https://dmgmoridevices.adamos.com/apps/administration/index.html#/applications/2023/status]  
+shows: 
+
+ALARMS 
+*311* Back-off restarting failed container 
+12 April 2021 09:51 
+*565* Readiness probe failed: Get [http://10.244.24.138:80/health:|http://10.244.24.138/health:] dial tcp 10.244.24.138:80: connect: no route to host 
+12 April 2021 09:46 
+
+9 April 2021 09:46 Deployment was changed 
+9 April 2021 09:47 Container image ""[kube-registry-persistent-secure.adamos-multinode-prod.svc.cluster.local:5000/dmgmoridevices/pending-assignment:0.2.0|http://kube-registry-persistent-secure.adamos-multinode-prod.svc.cluster.local:5000/dmgmoridevices/pending-assignment:0.2.0]"" already exists. 
+
+Microservice log is attached. 
+The error starts with: 
+{color}2021-04-12 08:11:03.908 ERROR 12 --- [subscriptions-0] c.m.s.s.MicroserviceSubscriptionsService : Error while reacting on microservice subscription 
+com.cumulocity.sdk.client.SDKException: Error invoking GET http://cumulocity:8111/application/currentApplication.... 
+
+{color:#1f497d} 
+
+{color}"
+"'system:SendEmail': Mail server connection failed; nested exception is javax.mail.MessagingException: Could not connect to SMTP host: localhost, port: 25;","Customer encountered a 'system error' when Cumulocity tries to send emails generated by smart rules ('mail server connection failed'). Please find attached a screenshot of the message.
+
+Exception on tenant incubateur in statement 'system:SendEmail': Mail server connection failed; nested exception is javax.mail.MessagingException: Could not connect to SMTP host: localhost, port: 25; nested exception is: java.net.ConnectException: Connection refused (Connection refused). Failed messages: javax.mail.MessagingException: Could not connect to SMTP host: localhost, port: 25; nested exception is: java.net.ConnectException: Connection refused (Connection refused)
+30 September 2019 03:19 CEP Engine incubateur
+
+Type c8y_CepRuntimeException@system:SendEmail
+Exception details { 'rootCauseMessage': 'ConnectException: Connection refused (Connection refused)', 'statementName': 'system:SendEmail', 'message': 'Mail server connection failed; nested exception is javax.mail.MessagingException: Could not connect to SMTP host: localhost, port: 25;\n nested exception is:\n\tjava.net.ConnectException: Connection refused (Connection refused). Failed messages: javax.mail.MessagingException: Could not connect to SMTP host: localhost, port: 25;\n nested exception is:\n\tjava.net.ConnectException: Connection refused (Connection refused)', 'tenant': 'incubateur' }
+
+Can you take a look at this issue and let me know what needs to be done to resolve this?
+
+Thanks,
+Kent"
+Smartrules+datapoints+alarms do not work for non explicit thresholds - CEP upgrade required,"incubateur.connect.opteama.stelia.aero
+
+Device td2 in group Logistique > Cong?lateurs > Cong?lateurs M?aulte -44C has an explicit rule to raise an alarm when the temperature > 70 . It also has a rule that is not explicit i.e. threshold from the datapoint, that was added from the Data Explorer tab.
+
+These two rules work.
+
+However, if I add a smart rule on the td2 device Info tab (not from Data Explorer) for 'Creates alarms when measurement reaches thresholds' it does not work, although it looks identical to the one added from the Data Explorer tab.
+
+There is also a problem that a rule added to group 'Cong?lateurs M?aulte -44C' called 'CONG Group level temp alarm', and enabled for device td2 does not show in the Info tab of td2. Neither does it work.
+
+Explicit rules work with no problem."
+https://developer.cumulocity.com/ not secure,"* {*}Product Version:{*}10.16 
+  
+
+* {*}Severity:{*}Crisis 
+  
+* {*}Tenant Name:{*}t1684359976 
+
+* *Tenant URL:* 
+[https://dielectric.dacsystem-apollo.com/] 
+  
+
+we have trouble connecting to the platform from all our devices. 
+
+We belive that the reason is because the certificate for [https://developer.cumulocity.com/] is self signed and not verifiable by our end. 
+
+The change has happened on August 10. 
+
+This is an very urgent matter, as none of our devices is able to send data to the platform. 
+
+New certificate: 
+
+!Invalid certificate.png|thumbnail! 
+
+---------------------------- 
+
+*According to the customer:* 
+
+The error is thrown by the cumulocity sdk when it tries to access the platform (see attached). 
+
+We haven't changed anything on the edge side. 
+
+!Screenshot from 2023-08-21 20-53-00.png|thumbnail! 
+
+I would like to reiterate that I think our certificate has nothing to do with the problem. 
+We changed the certificate today (as we did 3 months ago) of our domain name but our customers, whom I contacted earlier, reported that they noticed the problem as early as last week. 
+
+I could be wrong; I don't have a complete view of the problem, but can you check whether the previous certificate of your domain [developer.cumulocity.com|http://developer.cumulocity.com/] was also self-signed?"
+CLONE - Core Logs needed IOT-14892 - MQTT connection not working on eu-latest since 10.14 upgrade,"Tenant: https://switschel.eu-latest.cumulocity.com 
+Version: 10.14.0.68 
+
+It seems that with 10.14 Devices connected via MQTT cannot communicate anymore properly with the platform on eu-latest. 
+
+It did several tests with the dm-agent and MQTTBox and the results are always that if something is send the device managed object (MO) is created, but not the _c8y_Serial_ identity. This result in multiple MOs created sent from the same Agent/Client (with same client id). 
+
+What it did is basically: 
+
+*_2022-08-23 08:38:38,808 MainThread DEBUG c8ydm.client.mqtt_agent Send: topic=s/us msg=100,dm-example-device-9163eae89c3d,c8y_dm_example_device_* 
+
+QoS 2 and QoS 0 have been tested. 
+
+After a very long time, we get this on _s/e_: 
+
+*_2022-08-23 08:50:50,536 Thread-1 DEBUG c8ydm.client.mqtt_agent Received: topic=s/e msg=50,100,Error on device creation,"" message: Failed to connect Pulsar producer Pulsar NotificationPublishService publisher pool wait>_* 
+
+The MO is created but there is no _*c8y_Serial*_ identity leading in multiple MO created each time something via MQTT is sent to the platform. 
+
+This seems to be a tenant related issue as other tenants are reported to be working."
+Please delete some Tenants for us on our Staging environment,"*Necessary iTrac information (Please remove those items not applicable)* 
+*Affected system* 
+
+SAG Cloud region: *EMEA*  Version *10.16* 
+Time Zone: *CET* 
+
+*Affected tenant* 
+
+Tenant: *see list in description* 
+
+*Description of the Problem:* 
+
+Eppendorf needs to have some tenants deleted: 
+
+{color:#172b4d}t19282594 
+{color}{color:#172b4d}t14699897 
+{color}{color:#172b4d}t20091236 
+t10027404 
+t10027406 
+t151657938 
+t156569943 
+t159117084 
+t156689767 
+t156608888 
+t153124225 
+t153128082 
+t153128942 
+t153132376 
+t153132811 
+t153596542 
+t153608570{color} 
+
+Thanks 
+
+Michael"
+CLONE - Issue on DataBroker (24/4/15),"*Necessary iTrac information (Please remove those items not applicable)* 
+*Affected system* 
+
+SAG Cloud region: _{_}{{_}}Japan{{_}}{_}_____ Domain ____{_}{{_}}cumonosu.com{{_}}{_}____ Version ____{_}{{_}}10.18{{_}}{_}____ 
+System Usage (Choose one of: Production / Test / Development): ____{_}{{_}}Production{{_}}{_}___ 
+Time Zone: ___{_}{{_}}JST{{_}}{_}_____ 
+
+*Affected tenant* 
+
+Tenant: [https://okippa.cumonosu.com|https://okippa.cumonosu.com/]   
+
+[https://okippanishimatsu.cumonosu.com|https://okippanishimatsu.cumonosu.com/]  
+
+[https://miyazakikasenkokudou.cumonosu.com|https://miyazakikasenkokudou.cumonosu.com/] 
+
+[https://okippa_ext.cumonosu.com|https://okippa_ext.cumonosu.com/] 
+
+[https://shiogama.cumonosu.com|https://shiogama.cumonosu.com/] 
+
+[https://okippagreen_tx.cumonosu.com|https://okippagreen_tx.cumonosu.com/] 
+
+[https://okippagreen-th.cumonosu.com|https://okippagreen-th.cumonosu.com/]  
+
+Enterprise Tenant? Yes 
+
+*Application:* 
+* (URL in ""Own applications"" if not standard app): DataBroker 
+
+*Time period error was observed:* 
+* Start: ___{*}2024/04/15  20:30 JST{*} _______ End: ____2012/04/16 
+* Repeatability?  Seen _3_ times in last day 
+* Frequency - Time of day: From 20:4 - 20:39 JST Apr. 15th 
+
+*Attach log files...*  Please find attached for the list of alarms when user got at the time from 20:34 - 20:39 JST Apr. 15th. 
+
+Checked the Grafana and please find the first occurrence logs on 15th via link:  [https://grafana.monitor.c8y.io:3000/d/UMOFKKiVz/core-logs?orgId=1&var-datasource=loki-prod-apj-01&var-c8yEnv=cumulocity-multinode-ap-northeast-1-prod&var-nodename=All&var-namespace=cumulocity-core&var-context=databroker&var-filter=&from=1713180780000&to=1713181140000]  
+
+*Description of the Problem:* 
+
+End customer got an issue on DataBroker on Apr 15 at 20:30 in JST. Since then, all the connection via DataBroker stopped sending data between tenants. 
+
+Got the following alarms for all the connection via DataBroker: 
+Sample alarm: 
+- ""type"": ""c8y_BrokerConnectionError_2869984"", 
+- ""text"": ""Data broker is not able to connect to destination tenant for connector 2869984. Events will not be forwarded until the connection is restored."", 
+Because this errors on DataBroker created CRIRIS in destination tenants, the impact of this error is huge. Can you tell us why this happened? 
+
+This morning, customer deactivated and reactivated the DataConnector in source tenants and then the data started sending again. 
+
+Kindly help check if DataBroker itself is working correctly and what is the cause of the alarms? 
+
+  
+
+{*}Update{*}: Issue occurred again around {*}21:45 JST Apr. 16th{*}. As customer manually inactivate and reactivate DataConnector, data were sent again. Since all DataConnector stopped sending data, this is very problematic and critically damaged to customer’s business. Please help check and fix this issue? How to prevent it from occurring again?"
+PROD: Mongo CPU Utilisation has been increased 2-3 times than usual since prod upgrade,"After production upgrade to v10.11, we have noticed an unusual increase in Mongo_CPU Utilisation. Though it has not reached the full capacity but the utilization has increased almost 2-3 times than usual since upgrade. 
+
+Could you please take a look and let us know the reason for this significant increase? and also if any impact expected in near future?"
+Hillrom Sandbox increase maximum device certificate chain length,"Baxter team are currently testing their device certificate auth use-case. As part of that they would like to temporarily increase the maximum device certificate chain length to 9. 
+
+This is configured in the _cumulocity-core.properties_ file. The option is _mqtt.clientCertificate.maxChainLength._ 
+Changing this option will require core restart."
+Issues with OTA Updates and EPL Monitors and receiving emails,"Tenant ID:  t114121 
+
+Tenant url:  prod.flexcoelevatedashboard.com 
+
+  
+
+After our platform was upgraded to 10.15, we are now experiencing issues with our Apama EPL monitors and Alarms including sending emails from the monitor (AlarmSettingsManager). The other issue is that we are unable to send over the air updates to our IoT devices. We keep getting an error called \{{""failureReason"": ""Delete not supported"". }} 
+
+  
+
+I don't see any errors in the Apama logs.  Checking with customer for more clarification on the issues they are seeing with the EPL and where exactly they are seeing the error they mentioned. 
+
+  
+
+ "
+Please check ngbr-backend-digestor-scope-t9763259-pod,"SBD environment: Can you check this pod? *ngbr-backend-digestor-scope-t9763259-pod* 
+  
+  
+Customer is seeing this error: 
+  
+  
+Failure executing: GET at: [https://localhost:6443/api/v1/namespaces/stanleybd-multinode-prod/pods/ngbr-backend-digestor-scope-t9763259-deployment-6c5cf757f7cjnz4/log?pretty=true&tailLines=2000&timestamps=true]. Message: container ""ngbr-backend-digestor-scope-t9763259-pod"" in pod ""ngbr-backend-digestor-scope-t9763259-deployment-6c5cf757f7cjnz4"" is waiting to start: trying and failing to pull image. Received status: Status(apiVersion=v1, code=400, details=null, kind=Status, message=container ""ngbr-backend-digestor-scope-t9763259-pod"" in pod ""ngbr-backend-digestor-scope-t9763259-deployment-6c5cf757f7cjnz4"" is waiting to start: trying and failing to pull image, metadata=ListMeta(_continue=null, remainingItemCount=null, resourceVersion=null, selfLink=null, additionalProperties={}), reason=BadRequest, status=Failure, additionalProperties={}). 
+  
+Is there a log file as we get this error when trying to view it from the UI?"
+Unify microservice is unable to send any query to dremio,"(SI-510801) Please help look into the Solenis platform to see if they are having problems? Customer is reporting ""Seems like something wrong with our platform or datahub our unify microservice is unable to run any query to dremio"". 
+
+This has been resolved by restarting datahub. 
+
+We need the logs that OPS saved. 
+
+  
+
+*Necessary iTrac information (Please remove those items not applicable)* 
+*Affected system* 
+
+SAG Cloud region: ____AME______ 
+
+Version ____10.15________ 
+System Usage (Choose one of: Production / Test / Development): ___Production_____ 
+
+*Affected tenant* 
+
+Tenant: [cloud.iot.solenis.com|http://cloud.iot.solenis.com/] 
+Enterprise Tenant? Yes 
+System accessible by R&D? No 
+
+*Issue associated device, application and/or microservice* 
+
+Example URL with the issue:  
+
+Ex- API - [https://cloud.iot.solenis.com/service/unify/measurement/measurements/series?&dateFrom=2023-01-28T18:30:00.000Z&dateTo=2023-03-29T18:29:42.000Z&pageSize=1440&revert=true&series=sol_onguardMeasurement.12_analog&source=588843734] 
+
+*Microservice:* 
+* (URL in ""Own applications"" if not standard app): ____Datahub______ 
+
+*Time period error was observed:* 
+* Ongoing. 
+* Repeatability? Always 
+* Frequency - All the time 
+
+*Description of the Problem:* 
+
+Seems like something wrong with our platform or datahub our unify microservice is unable to run any query to dremio. 
+
+Once i hit the API which fetches data to our dashboard the query run in the microsewrvice but it never went to the dremio to execute. 
+
+It is currently impacting our production and we are now totally cut of from our datalake. 
+
+Tenant- [cloud.iot.solenis.com|http://cloud.iot.solenis.com/] 
+
+Ex- API - [https://cloud.iot.solenis.com/service/unify/measurement/measurements/series?&dateFrom=2023-01-28T18:30:00.000Z&dateTo=2023-03-29T18:29:42.000Z&pageSize=1440&revert=true&series=sol_onguardMeasurement.12_analog&source=588843734] 
+
+  
+
+*Update at 9:00AM GMT+2 July 6th:* 
+
+Another tenant also having the issue. Currently it seems all not only one tenant were hit by this issue. 
+
+Tenant: [https://pca.iot.solenis.com|https://pca.iot.solenis.com/] 
+
+Kindly help check this."
+Microservices (OEE app) not starting. There seems to be k8s problem,"Sony are trying to start OEE microservice but getting error... 
+
+  
+
+{_}0/7 nodes are available: 2 Insufficient cpu, 2 node(s) were unschedulable, 3 node(s) had taint {{_}[node-role.kubernetes.io/master:|http://node-role.kubernetes.io/master:] _}, that the pod didn't tolerate._ 
+
+The tenant is [https://oee-showcase.dev.ss.c8y.io/]"
+Immediate deletion of EMT-tenants,"Deletion of the 2  suspended tickets on cumulocity.com 
+
+1)EMT-IoT  | {*}t1612822686{*}|{*}emt-iot.cumulocity.com{*}| (parent tenant: t1140957597 ) | Lukas Scholze| 
+
+2)  EMT Pre-Prod  | {*}t1978510818{*}| *bmp-preprod.emt.connect.liebherr.com*  (parent tenant: t1140957597 ) 
+
+Customer had confirmed that he is entitled to order the deletion (and my us privileges are not sufficient for that procedure). 
+
+ "
+Reset connection of datahub error,"From C8y Ops chat 
+Hello, we need to restart microservice datahub (407) for [mohawk-iiot.emea.cumulocity.com|http://mohawk-iiot.emea.cumulocity.com/] until 10am, can someone please do that? It hangs. 
+I'm only able to restart it for all tenants from management tenant. 
+  
+Alf Lundsten 
+BTW - Tomislav noticed yesterday that mohawk is doing data offloads once/minute 
+can we stop doing that? 
+then the microservice might also become more stable? 
+  
+Christian Herzog 
+Yes we are in touch with the customer and have the next meeting 10 am 
+Strange, yesterday was the datahub connection broken. 
+for [mohawk-iiot.emea.cumulocity.com|http://mohawk-iiot.emea.cumulocity.com/] 
+From 8am this morning we try to enable it again. 
+  
+Alf Lundsten 
+would you happen to have their tenantID? 
+  
+Christian Herzog 
+tenant ID = t11553862 
+  
+Alf Lundsten 
+datahub is doing something really strange at emea 
+  
+[root@Cumulocity-Azure-FRA-Prod-kubemaster-1 ~]# kc get po | grep datahub datahub-scope-eatonnubisnet-deployment-6d6d4b48f7-8wdks 1/1 Running 0 10d datahub-scope-management-deployment-5445bcd775-bcs7s 0/1 Terminating 0 25d datahub-scope-management-deployment-5c96bc558f-w7w4b 1/1 Running 0 10d datahub-scope-t10040326-deployment-664bbf5956-fgxhd 1/1 Running 0 10d datahub-scope-t10040326-deployment-f9c7b7b4d-6kqj5 0/1 Terminating 0 25d datahub-scope-t11553862-deployment-69886747fc-84dx9 0/1 Terminating 1 25d datahub-scope-t11553862-deployment-789797f897-x2j96 1/1 Running 0 10d datahub-scope-t19038577-deployment-5fbb5fb986-8gtw2 0/1 Terminating 0 25d datahub-scope-t19038577-deployment-6c48cf67f4-6q676 1/1 Running 0 10d datahub-scope-t21003750-deployment-66f76f6f9d-lps7m 1/1 Running 0 10d datahub-scope-t21003750-deployment-6ff5c57fb6-ggzgx 0/1 Terminating 0 25d datahub-scope-t21788514-deployment-54745b4448-dhsj5 0/1 Terminating 0 25d datahub-scope-t21788514-deployment-745989fd68-m4fzd 1/1 Running 0 10d datahub-scope-t21789255-deployment-64db8f59fc-zmj8z 0/1 Terminating 0 25d datahub-scope-t21789255-deployment-6d8c864bb5-p6csv 1/1 Running 0 10d datahub-scope-t58739859-deployment-9c7fff7fb-lmbxd 0/1 Terminating 0 20d datahub-scope-t58739859-deployment-dd46bb5d4-vf4cp 1/1 Running 0 10d 
+  
+pods being in terminated state for like 20 days? 
+  
+Christian - their active pod has been deleted datahub-scope-t11553862-deployment-789797f897-x2j96 1/1 Running 0 10d 
+For the meeting at 10 the restart of datahub for t11553862 would be helpful, lets clarify the other issues later. 
+OK we see the restart 
+Thanks! 
+  
+Alf Lundsten 
+state is still Running 0/1 though 
+now 1/1 
+  
+Christian Herzog 
+Thanks it works! 
+  
+Tim Doernemann 
+@Alf Lundsten Is it possible that we have a problem with the RDBMS on emea? Maybe the total number of parallel connections is too high or so? The Microservice is completely stuck in waiting for the DB to respond to simple queries 
+  
+Luca Fuso 
+this seems similar to what I saw in adamos dev some time ago 
+and it was not datahub related 
+I had to restart workers at that time"
+Microservices on the Platform is in CEST timezone and not UTC/GMT,"Baxter 10.18 Dev environment 
+
+*.deviot.hillrom.com 
+
+The 10.18 tenants that are setup for Baxter are running in CEST timezone. And hence the Microservice / Kubernates is running in CEST timezone, so all the dates logged/converted are in CEST and not UTC. 
+
+They need the timezone of the microservices changed from CEST to UTC/GMT. 
+
+  
+
+After the change, do the microservices need to be restarted for it to take affect?   Or does it to that dynamically? 
+
+  
+
+Thanks, 
+
+Kent 
+
+ "
+Devices failing to connect since before the 21/9 on APJ,"MIOT reported below issue
+
+***
+We are seeing across 3 tenants and 2 countries/telcos that devices are failing to connect to APJ cumulocity with their last connection from the 19/9 to around 2am UTC on the 21/9. 
+Strangely we have 3 devices still connecting to one tenant but I can't see a pattern. Have other customers experienced this recently? 
+Have there been any issues since the upgrade to 10.10?
+***
+
+Further analysis seems to point to a TLS certificate rejection by their radio modem. 
+They are aware that APJ certs haven’t change since February. 
+They wonder if there are any certificate or TLS related changes around 21/9
+
+Please check.
+We asked for exact tenant names and device ids that are affected and logs if any. Please check if there are any side effects from the upgrade we did on 16th."
+MEA Report for Jul-23 and Aug-23,"SAG Cloud region: APJ 
+
+Customer: Kallipr Pty Ltd 
+
+Kallipr Pty LTD is asking to send through the MEA Report for Billing for {*}Jul-23 and Aug-23{*}. Let me know if you need any more info."
+Delete the Eppendorf tenants from EMEA instance,"*Affected system* 
+
+Eppendorf tenants on EMEA instance 
+
+*Description of the Problem:* 
+
+Please delete the following Eppendorf tenants on EMEA instance. 
+
+|ExternalTenantId| 
+|t148968688| 
+|t149061122| 
+|t152534993| 
+|t244505135| 
+|t252077791| 
+|t252087620| 
+|t273177021| 
+|t275402352| 
+|t299708854| 
+|t305712168| 
+|t320898282|"
+Whole platform down,"Again, all our PRODUCTION environments are currently down, all our customers are affected! 
+
+Second time in less than 48 hours! 
+
+12 tenants on *.cumulocity.com domain 
+
+We have seen the notification about degraded availability, but we have nothing any more, we can’t even inform our customers. 
+
+Please resolve asap and provide root cause! 
+
+[management.americas.keminconnect.com|http://management.americas.keminconnect.com/] 
+
+[my.americas.keminconnect.com|http://my.americas.keminconnect.com/] 
+
+[management.emea.keminconnect.com|http://management.emea.keminconnect.com/] 
+
+[my.emea.keminconnect.com|http://my.emea.keminconnect.com/] 
+
+[adesco-ie.emea.keminconnect.com|http://adesco-ie.emea.keminconnect.com/] 
+
+[management.apac.keminconnect.com|http://management.apac.keminconnect.com/] 
+
+[my.apac.keminconnect.com|http://my.apac.keminconnect.com/] 
+
+[management.dev.keminconnect.com|http://management.dev.keminconnect.com/] 
+
+[development.dev.keminconnect.com|http://development.dev.keminconnect.com/] 
+
+[internal.dev.keminconnect.com|http://internal.dev.keminconnect.com/] 
+
+[integration.dev.keminconnect.com|http://integration.dev.keminconnect.com/]"
+"Error ""Not connected to broker""","Urgent help needed to see why tenant t721899389 on c8y prod gets http 500 when a measurement or event is added. The measurement/event is created but the response is .. 
+
+  
+
+{     ""error"": ""general/internalError"",     ""message"": ""Processing exceptions:\nError response: Not connected to broker : Error response: Not connected to broker"",     ""info"": ""[https://www.cumulocity.com/guides/reference/rest-implementation//#a-name-error-reporting-a-error-reporting""|https://www.cumulocity.com/guides/reference/rest-implementation//#a-name-error-reporting-a-error-reporting%22] } 
+
+  
+
+Above is POSTMAN, some microservices are also getting it. Grafana logs for http 500.. 
+
+  
+
+!image-2024-04-10-15-02-17-979.png! 
+
+  
+
+  
+
+Suspect Pulsar."
+Urgent request to review DEFAULT_BLOCK_SIZE param in LWM2M PROD,"Hi support,
+
+Our customer (SEW) believes that their devices are failing FOTA due to blocks being too large on a certain device class (Multix meter). FOTA works in LWM2M DEV but not PROD. What is the DEFAULT_BLOCK_SIZE param currently set to in PROD? In DEV, it is 256 bytes.
+
+The customer is going to rollout Multix devices by next week and as such has asked for this param to be reviewed (and possibly modified if needed) as soon as possible. Given that this param is a global setting, obviously we would need to discuss this first. But let's cross that bridge if we have to.
+
+Thanks,
+Dylan"
+need mqtt logs from adamos.com,"Please provide current queue-screenshots from adamos.com: 
+Prometheus, mqtt_queue"
+NTT: Questions about 10.14 to 10.18 Upgrade.,"Enquiry from SAG Bangalore. 
+
+  
+
+We have few questions regarding 10.14 to 10.18 Upgrade. 
+
+This is regarding upgrade planning for 'Baekart' and 'NTTC' Customer. 
+
+*Current version:* C8Y 10.14 with Mongo DB v4 , Centos 7.7/7.9 
+
+*Target version:*  C8Y 10.18 with MongoDB v5 , Rocky Linux 8.8 
+
+Question is related to Mongo DB upgrade to v5 in between this. 
+
+In operations guide it is mentioned that Mongo DB has to be upgraded to v5 after 10.16 upgrade. But when we are trying to upgrade from 10.15 to 10.16 in Dev environment  , base dependency file has references of v5. 
+
+We want to understand that can we follow this upgrade path as it will help us to have easier fallback plan: 
+
+We are planning to propose this plan to customer: 
+# {color:#0747a6}Upgrade c8y from 10.14 to 10.15.{color} 
+# {color:#0747a6}Upgrade c8y from 10.15 to 10.16.{color} 
+# {color:#0747a6}Upgrade c8y from 10.16 to 10.17.{color} 
+# {color:#0747a6}Upgrade c8y from 10.17 to 10.18.{color} 
+# {color:#0747a6}Mongo DB upgrade from v4 to v5.{color} 
+
+<<<< Testing and verification gap of few weeks for customer>> 
+
+{color:#0747a6}     6. Upgrade from Centos to Rocky Linux 8.8.{color} 
+
+Is this upgrade path correct? 
+
+Could you please confirm from R&D as it is not clear from documentation if mongo db can be upgraded after 10.18."
+BSci: Decision on annual vs continuous updates for non prod,"Customer wants their Non-Prod environment to be Continuous Updates. 
+
+  
+
+From Boston Scientific: 
+
+We have come to a decision on wanting to only update our non-production environment to be continuous updates. 
+
+We have not decided on our production environment yet 
+
+This is ONLY for our non-production environment for tenants on *.iotnonprod.bsci.com"
+Delete tenants,"We have a request for you on the delete of tenants. Since the total number of available tenants is limited on contract, we would like you to delete the following tenants we will not use anymore: 
+* [okippa02.cumonosu.com|http://okippa02.cumonosu.com/] 
+* hisys_pbx_dev.cumonosu.com 
+
+These tenants are now suspended. Because we need to create the new tenants right now, we would like you to delete these tenants as soon as possible. Can you request Ops team to do so?"
+inconsistency in notifications similar to CSOIOT-6084,"A customer on demo-solutions.emea.cumulocity.com has issues with realtime notifications - connection type websocket. 
+Details: 
+
+************************************************ 
+
+We'd like your support on an issue we're facing using Cumulocity's WEB SDK on our server. The issue we're facing, in particular, is concerning the realtime notifications feature not receiving notifications once deployed onto our AWS servers. Mind you, it works perfectly well when we're testing it on our local machines. The notifications come through quickly & swiftly and are handled. However, no notification seems to come in the pipeline once the same piece of code is deployed on AWS. No errors are thrown either. 
+
+Our servers run on docker to be environment agnostic. We've checked all ports, firewalls, and application+network load balancers on AWS (to the best of our ability & understanding) to ensure nothing is blocking in-bound/out-bound requests on the WebSocket. 
+
+We would like support from your team as to how we can proceed on resolving this challenge, as having real-time notifications is critical to the functioning of our application. This support could be in the form of a conference call where we can sit together and probe the issue, or any other approach you think would be most productive. 
+
+************************************************ 
+
+This is similar to: 
+- Ops ticket [https://itrac.eur.ad.sag/browse/CSOIOT-6084]  
+- R&D ticket [https://itrac.eur.ad.sag/browse/IOT-16623]  
+
+Differences: 
+- this ticket uses connection type websocket, the other long-polling 
+- this ticket is to a tenant on .emea.cumulocity.com, the other to a tenant on .cumulocity.com  
+
+I made this test below, same result as the other ticket, but I'm not sure if this is the poof of the issue: 
+
+1. get the handshake session 
+POST {\{url}}/cep/realtime 
+body: 
+
+[ 
+    { 
+        ""version"":""1.0"", 
+        ""minimumVersion"":""0.9"", 
+        ""channel"":""/meta/handshake"", 
+        ""supportedConnectionTypes"":[""websocket""], 
+        ""advice"":{ 
+            ""timeout"":60000,""interval"":0 
+        } 
+    } 
+] 
+Response: 200 OK with '...  ""clientId"": ""70w1zpluhecw7oxrhrdtdzizxegwj""....""successful"": true....' 
+2. subscribe to the device channel 
+POST {\{url}}/cep/realtime 
+body: 
+
+[ 
+    { 
+        ""channel"":""/meta/subscribe"", 
+        ""subscription"":""/managedobjects/122285724"", 
+        ""clientId"":""70w1zpluhecw7oxrhrdtdzizxegwj"" 
+    } 
+] 
+Response: 200 OK with '....""successful"": true....' 
+
+3. Use long polling connection for retrieving data from a channel 
+POST {\{url}}/cep/realtime 
+body: 
+
+[ 
+    { 
+        ""channel"":""/meta/connect"", 
+        ""connectionType"":""websocket"", 
+        ""clientId"":""70w1zpluhecw7oxrhrdtdzizxegwj"" 
+    } 
+] 
+Although the device receives a lot of measurements, no response is listed here. "
+Need lwm2m logs from Itron environment.,"Need lwm2m agent log from Itron environment.  Can you check to see if they are still at debug level?  Unfortunately the logs from Grafana arent't sufficient for R&D. 
+
+  
+
+We need them from 7 July starting around 21:20 EDT.   
+
+  
+
+Hopefully they are still available,"
+Increase in http 502 responses on eu-latest since May 8th.,"Graylog reveals a big increase in http 502 responses on eu-latest since May 8th. Most are responses to POST requests but there are also some GETs. 
+
+Almost all are from microservices, both user written microservices and our own such as apama- starter. 
+
+Checking microservice logs I can see that in the case of POST the measurement is not created, therefore data is being lost! 
+
+
+Prior to 8th May it can be seen that there is a spike in 502s every morning around 1am."
+LWM2M bootstrap server issue on US instance.,"Unable to set up devices using the bootstrap server:
+
+2021-10-21 08:12:59,436 INFO RegistrationEngine - Trying to start bootstrap session to coaps://lwm2m.us.cumulocity.com:5684 ...
+2021-10-21 08:12:59,913 ERROR RegistrationEngine - Bootstrap failed: INTERNAL_SERVER_ERROR .
+2021-10-21 08:12:59,915 INFO CumulocityLwm2mClientDemo - event log EventType: BOOTSTRAP_FAILURE, ResourceId: null, value: null, arguments: [Bootstrap Server [uri=coaps://lwm2m.us.cumulocity.com:5684], INTERNAL_SERVER_ERROR, ]
+2021-10-21 08:12:59,915 INFO RegistrationEngine - Unable to connect to any server, next retry in 600s...
+
+
+
+This is the command I am using: java -jar device.jar -u lwm2m.us.cumulocity.com:5684 -n Test1_PSK_kent -i 22335571 -p 626f6f74737472616f -b
+
+
+Info from Ozge:
+
+this one 
+$ java -jar CumulocityLwm2mClientDemo-jar-with-dependencies.jar -u lwm2m.us.cumulocity.com:5784 -n Test1_PSK_kent -i 12345671 -p 13757065726861736c6f
+even returns sth. worse ?? 
+17:52:15.448 [CoapServer(main)#1] DEBUG org.eclipse.californium.core.network.InMemoryMessageExchangeStore - [LWM2M Client-coaps://] removing Exchange[L1, complete] for MID KeyMID[lwm2m.us.cumulocity.com/52.32.209.142:5784-58559]
+17:52:15.448 [RegistrationEngine#0] WARN org.eclipse.leshan.client.engine.DefaultRegistrationEngine - Unable to send register request
+org.eclipse.leshan.core.request.exception.SendFailedException: Request CON-POST MID=58559, Token=74354C089F004AAF, OptionSet={'Uri-Path':'rd', 'Content-Format':'application/link-format', 'Uri-Query':['b=U','lwm2m=1.0','lt=30','ep=Test1_PSK_kent']}, Received 'fatal alert/HANDSHAKE_FAILURE' '</>;rt='oma.lwm2m',</1/0'.. 156 bytes cannot be sent
+at org.eclipse.leshan.core.californium.CoapSyncRequestObserver.onSendError(CoapSyncRequestObserver.java:106)
+at org.eclipse.californium.core.coap.Message.setSendError(Message.java:1063)
+at org.eclipse.californium.core.coap.Request.setSendError(Request.java:1132)
+at org.eclipse.californium.core.network.CoapEndpoint$SendingCallback.onError(CoapEndpoint.java:1531)
+at org.eclipse.californium.elements.RawData.onError(RawData.java:303)
+at org.eclipse.californium.scandium.DTLSConnector$2.handshakeFailed(DTLSConnector.java:521)
+at org.eclipse.californium.scandium.dtls.Handshaker.handshakeFailed(Handshaker.java:1882)
+at org.eclipse.californium.scandium.DTLSConnector.processAlertRecord(DTLSConnector.java:1732)
+at org.eclipse.californium.scandium.DTLSConnector.processRecord(DTLSConnector.java:1503)
+at org.eclipse.californium.scandium.DTLSConnector$12.run(DTLSConnector.java:1365)
+at org.eclipse.californium.elements.util.SerialExecutor$1.run(SerialExecutor.java:289)
+at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+at java.base/java.lang.Thread.run(Thread.java:829)
+Caused by: org.eclipse.californium.scandium.dtls.HandshakeException: Received 'fatal alert/HANDSHAKE_FAILURE'
+at org.eclipse.californium.scandium.DTLSConnector.processAlertRecord(DTLSConnector.java:1722)
+... 9 common frames omitted
+17:52:15.448 [CoapServer(main)#1] DEBUG org.eclipse.californium.core.network.Exchange - local Exchange[L1, complete] completed CON-POST MID=58559, Token=74354C089F004AAF, OptionSet={'Uri-Path':'rd', 'Content-Format':'application/link-format', 'Uri-Query':['b=U','lwm2m=1.0','lt=30','ep=Test1_PSK_kent']}, canceled '</>;rt='oma.lwm2m',</1/0'.. 156 bytes!
+17:52:15.449 [RegistrationEngine#0] INFO com.cumulocity.lwm2mclient.CumulocityLwm2mClientDemo - event log EventType: REGISTRATION_FAILURE, ObjectId: null, ResourceId: null, value: null, arguments: [coaps://lwm2m.us.cumulocity.com:5784[LWM2M_SERVER 123], null, null, org.eclipse.leshan.core.request.exception.SendFailedException: Request CON-POST MID=58559, Token=74354C089F004AAF, OptionSet={'Uri-Path':'rd', 'Content-Format':'application/link-format', 'Uri-Query':['b=U','lwm2m=1.0','lt=30','ep=Test1_PSK_kent']}, Received 'fatal alert/HANDSHAKE_FAILURE' '</>;rt='oma.lwm2m',</1/0'.. 156 bytes cannot be sent]
+17:52:15.451 [RegistrationEngine#0] INFO org.eclipse.leshan.client.engine.DefaultRegistrationEngine - Try to register to coaps://lwm2m.us.cumulocity.com:5784 again in 600s..."
+Siemens AWS PROD - Security issues on AWS PROD,"Hi, 
+
+SIEMENS security scans reported some issues on the AWS WebMethods Integ Account 133648259725. The issues are open security groups. 
+
+The below instances allow unrestricted ""Ingress"" from the internet (0.0.0.0/0) on one ore more ports: 
+
+arn:aws:ec2:eu-central-1:042578614091:instance/i-00c3e5f5476016df1 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-01237ec0f4557f9b2 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-01a3b8df7ae50b6be 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-05cd2e9ac6474a097 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-05d6c4a9be4fefbf8 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-081719052e45f1363 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-0875f1a034ba99b6c 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-0aeb8dbdd149c6bbe 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-0b310a2162237423f 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-0c01b1e199a2cb66f 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-0d75cc2bc9c6574f6 
+arn:aws:ec2:eu-central-1:042578614091:instance/i-0ead292d28d56b46c 
+
+SIEMENS security requierement is that this will be fixed within the next weeks. 
+
+In case those ports are needed please comment the usage so that Siemens know more details about the demand 
+
+best regards 
+Michael"
+Delete tenant t802682178,"Hi Ops, 
+Kai Sieben asked if we can please delete tenant t802682178 from eu-latest. 
+
+Thanks, 
+Jelle 
+
+ "
+Gardner Denver - Database backup,"Gardner Denver would like another backup of their database. 
+
+Tenant:  [https://industrials.cas.irco.com/] 
+
+For large files you can share with the customer: 
+
+[https://sagportal.sharepoint.com/sites/IT-Self-Service/SitePages/SAG-External-Sharing.aspx] 
+
+  
+
+  
+
+ "
+'SBD Production request report' source email,"*Affected system* 
+
+Environment: sbdconnect.io 
+
+*Description of the Problem:* 
+
+Customer has got an email with subject 'SBD Production request report' from 'no-reply@cumulocity.com'. They wanna know where this email is originating from?  The source email is cumulocity.com, which is different than their root domain (sbdconnect.io). 
+
+
+{code:java} 
+-----Original Message----- 
+From: no-reply@cumulocity.com <no-reply@cumulocity.com> 
+Sent: Saturday, October 15, 2022 5:00 PM 
+To: zz_CRP_uiot-prod <uiot-prod@sbdinc.com> 
+Subject: SBD Poduction request report 
+
+< ***CAUTION: EXTERNAL MESSAGE*** > 
+
+
+
+================================================================================================ 
+Name: Request Statistics Report 
+Date: Sat Oct 15 09:00:01 UTC 2022 
+Report Date: 20221014 
+Hostname: jumphost-virginia 
+PWD: /root 
+Script Path: /opt/scripts 
+Command: /opt/scripts/https://urldefense.com/v3/__http://nginx-req-stats_prod.sh__;!!JCruJraw!Ps_vND20ZPflhKiiIpewxqKKew3OJUswApKk8zc_BXuqNMTWSvfyv-8Sn0xRbFywJcpqfO52uzdSDTmPhLPpaA$ 
+Excluded Requests: (GET / |/cep/realtime) Nginx Access Log: /opt/scripts/temp_prod/lb1_access.log-20221013_16 /opt/scripts/temp_prod/lb2_access.log-20221013_16 
+Log File: /opt/scripts/nginx-req-stats_prod.log 
+Output File: /opt/scripts/output/nginx-req-stats_prod-report-20221014.txt 
+================================================================================================ 
+
+
+
+------------------------------ 
+| Top most expensive request | 
+------------------------------ 
+
+
+
+
+------------------------- 
+| Ranked by User Agents | 
+------------------------- 
+
+
+
+
+-------------------------- 
+| Ranked by IP Addresses | 
+-------------------------- 
+
+
+
+
+----------------------- 
+| Count Unique Visits | 
+----------------------- 
+
+0 
+
+
+
+---------------------------- 
+| Ranked by Response Codes | 
+---------------------------- 
+
+
+
+
+--------------------------------------------- 
+| Ranked by Response Code - 404 (Not Found) | 
+--------------------------------------------- 
+
+
+
+
+----------------------------------------------- 
+| Ranked by Response Code - 502 (Bad Gateway) | 
+----------------------------------------------- 
+
+
+
+
+----------------------- 
+| Most requested URLs | 
+----------------------- 
+
+{code} 
+
+
+*Any idea from where this email is generated? and how can we disable it?*"
+Delete Eaton Subtenant from EMEA instance,"*Affected system* 
+
+SAG Cloud region: EMEA instance 
+Enterprise Tenant Name: eatonnubisnet 
+Enterprise Tenant URL: https://management.dashboard.nubisnet.net/ 
+
+*Description of the Problem*: 
+
+Customer has requested to delete the following eaton tenant which is the sub-tenant of 'eatonnubisnet': - 
+
+• *Test-Sup-tent1 - t133833316 - qws.dbt.machinery-monitoring.com*"
+Can't edit Inventory job or re-enable previously disabled one,"Trying to edit an inventory offload gives a {{Timeout}} when attempting to validate the schema. This is affecting editing columns as well as simply just re-enabling a previously disabled job. 
+
+From chat: 
+Mohd Shahmi Abdul Majid 
+,Yesterday 6:19 PM 
+@Allan Eha : can you create ticket for this and we will check from our end 
+  
+  
+it seem this issue happened randomly as upon checking last week by Bartosz, seems fine 
+ "
+"Change primary Admin user for Cumulocity Enterprise Tenant ""https://sag-dach.cumulocity.com""","*Affected system* 
+
+Tenant ID: t74484347 
+Tenant URL: https://sag-dach.cumulocity.com/ 
+
+*Description of the Problem:* 
+
+Currently the primary Admin user for the enterprise tenant 
+
+t74484347 
+
+https://sag-dach.cumulocity.com 
+
+is ""sebastian.buettner@softwareag.com"". 
+
+Sebastian has left the company; therefore, could you please change the admin to following user in the UI? 
+
+Admin Name: Christof Strack 
+Admin Email: christof.strack@softwareag.com 
+
+Please see screenshot attached for more clarity. 
+"
+CLONE - Command failed : exceeded memory limit,"Hi R&D, 
+
+on a machines.cloud tenant during data upload an errpr message pops up stating that some memory limit got exceeded. The screen shot is attached. 
+
+A check with Ops cleared out an issue with disc space already. 
+
+Can you elaborate which limit is hit here and how to fix this issue? 
+
+  
+
+Tenant: agria.machines.cloud 
+
+  
+
+best regards 
+
+Michael"
+Upgrade of our (LwM2M) instance to 10.18.230.0,"* *Customer ITron* 
+* 
+*Tenant Name:* 
+envd417247 
+* 
+*Tenant URL:* 
+[https://envd417247.c8y.sag.idealabs.cloud/apps/administration] 
+
+Can you please upgrade our (LwM2M) instance to (dev) version: 10.18.230.0 
+
+ "
+CLONE - Increase in Core and Agent CPU utilization at 14:00 UTC on 11th March,"From Akshay Rajeshwar / Telstra: 
+
+As communicated over email, we observed a CPU spike for a short time for platform Core at 14:00 UTC on March 11. 
+
+ Also, during the same time, we observed a spike in CPU utilization for LWM2M Agent 1 as well. 
+
+We observed high CPU utilization for both Core and LWM2M Agent 1, which results in the disconnection of the client, and it reconnects after some time, so this is a bit unusual this time! 
+
+ During that time, we have also noticed multiple exceptions: “{*}ERROR 1098{*} — [CoapServer(main)#2555] c.l.l.s.e.h.Lwm2mRegistrationHandler: Failed to execute on registration updated operations on listener.” 
+
+ As Oezge mentioned, she has observed some errors in LWM2M agent logs, so please investigate this issue and suggest further. 
+
+ Attaching the ongoing email, which has all screenshots and details for your reference. 
+
+ "
+[Jemena Prod] Request logs - Device status is shown as disconnected despite device is online,"*Necessary iTrac information (Please remove those items not applicable)* 
+*Affected system* 
+
+SAG Cloud region: __{_}APJ{_}____ Domain ___{_}telstra.com{_}____ Version __{_}10.11{_}____ 
+System Usage (Choose one of: Production / Test / Development): __{_}Production{_}_ 
+Time Zone: __{_}AEST{_}____ 
+
+*Affected tenant* 
+
+Tenant: Jemena 
+Enterprise Tenant? Yes 
+System accessible by R&D? No 
+
+*Device:* 
+* Device manufacturer and type: ___{_}LwM2M{_}__ 
+
+*Time period error was observed:* 
+* Start: ongoing. 
+* Repeatability? seen in last days 
+* Frequency - All the time 
+
+*Description of the Problem:* 
+
+Create this iTrac to Ops team to collect logs for iTrac [IOT-17584|https://itrac.eur.ad.sag/browse/IOT-17584] . 
+
+Need to collect Lwm2m service log as well as logs from c8y-agents-1011.0.17/lwm2m-agent/server/src/main/java/com/cumulocity/lwm2m/agent/server/service/operation/DeviceSubscriptionServiceImpl.java#L68 
+
+  
+
+Btw. R&D already have access to this tenant via Jakub's account, but this user does not have permission to see logs from Microservice.  
+
+  
+
+*Customer issue:* 
+
+In end customer (jemena) product tenant (tenant name: {*}Jemena, version 10.11.0.17{*}), it is recently observed that the devices are showing the push connection as “{*}inactive{*}” and connection status as “{*}Disconnected{*}” despite device is online and doing continuous registration updates. See attached screen shot ( Jemena Prod 10.11.png ) 
+
+{*}Note{*}: In Jemena dev tenant ({*}t188211358, version 10.15.0.386{*}), customer was not seeing the above behavior. Device status is shown as “{*}Connected{*}” and push connection as “{*}Active{*}” which makes sense (See attached screen shot ""Jemena Dev 10.15.PNG""). 
+
+  
+
+No device impact reported by the customer. However, end customer would like to have clarifications for below queries. Although 10.11 is out of support, end customers of Telstra are still using 10.11. 
+* Why does the device shows the push connection as “{*}inactive{*}” despite device being connected on 10.11? In the attached screen shot of 10.11, latest updated time is {*}June 5th 10:42{*}, while push connection is 'Inactive'. 
+* Why does the device shows the status connection as “{*}Disconnected{*}” despite device being connected doing continuous registration updates? 
+* Whether push connection and device connection status are related to each other? 
+* Any device impact is expected to be observed due to the above behavior on 10.11?"
+CLONE - SSO issue on https://phios.cumulocity.com | Error: header cannot be null,"Customer tenant https://phios.cumulocity.com (Tenant ID: t725154470) was configured with SSO before and now they suddenly get an error like ""Could not load OAuth 2.0 configuration"" with detail information ""header cannot be null"". 
+
+When we go to SSO Config settings in c8y as error occurs, saying that it ""Could not load OAuth 2.0 configuration"" with detail information ""header cannot be null"". 
+
+This issue seems to happen due to this change. 
+
+https://cumulocity.atlassian.net/browse/MTM-41054 
+
+Is there anyway we can bring back the SSO config for https://phios.cumulocity.com? 
+Tenant ID: t725154470 
+
+..."
+Need lwm2m agent log from Itron env,Need lwm2m agent log from Itron env from today 1- August.
+Add valid license for 'syntegon.cumulocity.com' (t1394552929),"Customer: Syntegon Packaging Systems 
+Tenant ID: t1394552929 
+Tenant URL: syntegon.cumulocity.com 
+Admin Email: hansruedi.wanner@syntegon.com 
+Domain: *.cumulocity.com 
+
+Please add the license for customer's enterprise tenant 'syntegon.cumulocity.com' (t1394552929) in order to activate their custom domain '*.synexio.syntegon.com'. Please refer the attached screenshot."
+Telstra- Issue with SMS Gateway?,"Could you please have a look and investigate the health of the SMS gateway in Prod and Dev environment? 
+
+Since yesterday at 2022-10-25 13:07:19 we first started seeing issues whereby users were not receiving the SMS code to log into the platform. 
+
+There was a downstream network issue which was thought to be impacting the RCS /SMS Gateway in our network, however that has since been resolved and the problem still persists. 
+
+The team have also tested the RCS API endpoint and have successfully received SMS code which so far indicates RCS platform is fine. 
+
+  
+
+Given we’ve verified RCS platform health, we’ll raise a crisis incident to get this investigates ASAP as it’s impacting customer’s ability to log in. 
+
+Interesting error regarding no more endpoints to try in the unsuccessful log below. 
+
+  
+
+From the sms pod, below is an example of a successful vs unsuccessful case: 
+
+  
+
+*Successful SMS* 
+
+  
+
+2022-10-25 06:49:07.054  INFO 14 — [http-nio-80-exec-3] c.s.g.c.OutgoingMessageSecuredController : Starting send SMS message from tel:+61*****{*}753 to [tel:+61{*}*****147] recipients 
+2022-10-25 06:49:07.057  INFO 14 — [http-nio-80-exec-3] c.c.s.g.p.BaseProviderFactoryBean        : Return provider for option telstra 
+2022-10-25 06:49:07.275  INFO 14 — [http-nio-80-exec-3] c.s.g.c.OutgoingMessageSecuredController : Successfully sent SMS message with comarch provider from tel:+61*****{*}753 to [tel:+61{*}*****147] recipients 
+
+  
+
+*Unsuccessful SMS* 
+
+  
+
+2022-10-25 13:07:19.588  WARN 14 — [http-nio-80-exec-3] .c.s.g.p.t.TelstraOutgoingMessageService : No more endpoints to try, sms won't be send 
+2022-10-25 13:07:51.215  INFO 14 — [http-nio-80-exec-7] c.s.g.c.OutgoingMessageSecuredController : Starting send SMS message from tel:+61*****{*}753 to [tel:+61{*}*****921] recipients 
+2022-10-25 13:07:51.215  INFO 14 — [http-nio-80-exec-7] c.c.s.g.p.BaseProviderFactoryBean        : Return provider for option telstra 
+2022-10-25 13:07:51.241  WARN 14 — [http-nio-80-exec-7] .c.s.g.p.t.TelstraOutgoingMessageService : Error while invoking Telstra SMS service for endpoint [https://free.rcs.telstra.com/messaging/v1/sms/outbound/acr%3Acumulocity/requests] 
+
+  
+
+Snapshot from Garylog logs, many of these from 25^th^ Oct, 13:07 AEDT. 
+
+!Snag_48727b6.png|thumbnail!"
+Request logs for issue that Telstra failed to upload microservice zip file,"*Necessary iTrac information (Please remove those items not applicable)* 
+*Affected system* 
+
+SAG Cloud region: ___APJ____ Domain _____telstra.com____ Version ___10.15.0.278____ 
+System Usage (Choose one of: Production / Test / Development): __Development__ 
+Time Zone: __AEDT___ 
+
+*Affected tenant* 
+
+Tenant: management 
+Enterprise Tenant? Yes 
+System accessible by R&D? No 
+
+*Microservice:* 
+* Customer microservice. Yes 
+
+*Time period error was observed:* 
+* Start: ongoing. 
+* Repeatability? Intermittent (seen 2 times in last 3 tests). 
+* Frequency - All the time 
+
+*Description of the Problem:* 
+
+While uploading the latest zip file for exiting microservice on Cumulocity UI portal in the Administration >  *Ecosystem* > {*}Microservices{*}“. 
+
+Below two errors observed: 
+# Initially it will try to upload the zip file but after some time we are getting the error ""A server error occurred"" as notification. this is intermittent error sometimes. User is not able to upload successfully. It occurred 2 times out of 3 retries. Tested on another server the same error appeared. 
+# 10.15.0.278 version doesn’t has zip uploading percentage. 
+
+Have created iTrac [IOT-17067|https://itrac.eur.ad.sag/browse/IOT-17067] to R&D.  
+
+Need to collect: 
+* logs of all core instances capturing the period of a failed microservice upload 
+* logs of the kube registry capturing the period of a failed microservice upload 
+
+Since Telstra is operated by Ops team, create this iTrac to ask for above logs file. 
+
+----------- 
+
+Customer tried to replicate the upload error on the UI to capture the timestamp( in {*}Sydney time{*}). 
+
+*upload start time* - 21-04-2023T20:45pm and *upload failed/end time* - 21-04-2023T21:00 pm. 
+
+Kindly help capture platform logs for above timestamp."
+Administrators deleted.,"Customer has deleted Administrators of oilconditionsoftware.cumulocity.com (tenant id oilconditionsoftware). 
+
+  
+
+Can we re-instate an Admins account so they can access to tenant and correct the situation? 
+
+  
+
+Defined administrator (in management.cumulocity.com)  is 'ben.fisher@tandeltasystems.com' with a userid of 'admin'. 
+
+  
+
+!image-2023-11-28-11-17-35-770.png|width=805,height=640!"
+Delete a group - sporadically the group is not deleted.,"Device management, delete a group sometimes does not delete the group. 
+Although Dev tools shows a 'clean' execution and expected 204 response and UI shows 'asset deleted' the group does not disappear from the list of groups, and can be clicked and viewed.
+
+It can be deleted a second time!
+
+ 
+
+See attached files."
+Scheduled Upgrade for Prod Cumulocity Instance to 10.13,"Customer has requested that their instance needs to be upgraded. 
+
+Casen Sigel 
+[Casen.Sigel@bsci.com|mailto:Casen.Sigel@bsci.com] 
+
+  
+I would like to get it on schedule for our prod instances of Cumulocity to be upgraded to 10.13 
+
+The options for dates are: 
+
+Monday, January 9th 2023 
+
+Tuesday, January 10th 2023 
+
+Wednesday, January 11th 2023"
+ISC Require Dremio Admin Credentials for Managing Multi-Tenant Analytics on their 3 environments,"Industrial Scientific:   requires Dremio Admin Credentials for Managing Multi-Tenant Analytics on their 3 environments.   
+
+PROD  [https://management.na.inet.com|https://management.na.inet.com/] 
+
+DEV  [management.na-dev.inet.com|http://management.na-dev.inet.com/] 
+
+QA  [https://management.na-qa.inet.com/] 
+
+  
+
+Below list of users for Dev & QA that need admin rights: 
+Witherspoon, Daniel [daniel.witherspoon@indsci.com|mailto:daniel.witherspoon@indsci.com] 
+Persson, Greg J [gpersson@indsci.com|mailto:gpersson@indsci.com] 
+Punugupati, Venkatesu [venkatesu.punugupati@indsci.com|mailto:venkatesu.punugupati@indsci.com] 
+Diwevedi, Vachaspati [vachaspati.diwevedi@indsci.com|mailto:vachaspati.diwevedi@indsci.com] 
+ISC SRE [SRE@indsci.com|mailto:SRE@indsci.com] 
+  
+
+Prod only - ISC SRE [SRE@indsci.com|mailto:SRE@indsci.com] 
+
+ "
+MQTT Secure Connection uses wrong certificate,"From customer... 
+
+  
+
+I have a problem when I try connecting over mqtts to a tenant of ours (e.g. [procomdev.clouver.de|http://procomdev.clouver.de/]) then I get the following error: 
+
+{{Error [ERR_TLS_CERT_ALTNAME_INVALID]: Hostname/IP does not match certificate's altnames: Host: procomdev.clouver.de. is not in the cert's altnames: DNS:*.cumulocity.com, DNS:cumulocity.com}} 
+
+it looks like the certificate for cumulocity is used instead of the *.clouver certificate that we had sent to you . 
+
+When trying to connect to “[procom.cumulocity.com|http://procom.cumulocity.com/]” with the procomdev credentials it works by the way. 
+
+How can this be fixed?"
+Alarms notifications not being received by users,"Customer complains they are getting no emails from their environment ([https://industrials.cas.irco.com/)] 
+
+  
+
+Ops chat... 
+
+  
+
+
+This is old Gardner-Denver iirc 
+​ 
+
+
+and they have been complaining about missing emails since we upgraded them to 10.15... 
+​ 
+
+
+They have a test tenant on EU-latest with their custom UI - do we know if Daniel P and Philipp E has finished their testing? 
+​ 
+
+
+/var/log/maillog on core3 is not happy 
+​ 
+
+
+Aug 24 09:18:12 gardnerdenver-core03 postfix/error[32206]: 42D4260141: to=<root@management.cas.irco.com>, relay=none, delay=0.02, delays=0.01/0.01/0/0, dsn=4.4.1, status=deferred (delivery temporarily suspended: connect to 52.58.146.111[52.58.146.111]:25: Connection timed out) 
+​ 
+
+
+And 52.58.146.111 is cepfra 
+​ 
+ "
+Upgrade SBD environment to 10.16.,Upgrade SBD environment to 10.16.
+"iTron: change baseURL and Install new certificates, keys (2FA reqd)","For browser 2FA to work, we understand that we need to have certificate-based DNS names associated with our Cumulocity instance and associated tenants.  We have added the attached DNS entries and have associated certificates/keys that we understand need to be installed on our C8Y instance by your devops team. See attached certificates, keys and DNS names that we plan to use. 
+
+07.06.2022 
+we need to change the baseURL of the platform to sag.idealabs.cloud - that's what the new ssl certs are for. 
+
+and the new C8Y license key is: 
+c8y.licence=38746609a027255fe13654248bcca0f1e9d5f4d2fe89f2f64d8b13048ee094034d129a4810b4f61ead6a4c9aa72cfcde16d0ea20e7cd5943ddd6b1f874fb44a5 
+"
+Need lwm2m-agent logs from cumulocity.com,"Hi, 
+1) due to a LWM2M issue I need lwm2m-agent logs from cumulocity.com from 30/07/21 
+Please assign them directly to https://itrac.eur.ad.sag/browse/IOT-11713 
+2) Please let me know the version of the lwm2m-agent if it is not stored in the log. 
+
+I have to test an issue on cumulocity.com for a customer. 
+A1 environment is not affected!"
+"""Deployment was changed"" - ""Container stopped""","on 2022-02-24 at around 13:00 UTC+1 these containers were stopped , redeployed and started on [eppendorfag.emea.cumulocity.com|http://eppendorfag.emea.cumulocity.com/]: 
+
+asset-organization - started even 2 times at 13:07 and 13:10 
+
+eai-registration - 13:07 
+
+Since we do not have access to the containers log files: can you please investigate and share with us the reasons of the deployments? 
+
+ Can you please include the recent restart of the notification sender today 2022-02-24 15:59 UTC+1 in the analysis?"
+Adamos: Multiple applications not working on cloud instance,"Customer has ** a very important demo 21.12. 1pm CET but our demo system which runs in the cloud is not able to demonstrate Apama streaming analytics or any Machine Learning application. Both are very critical for our demo and there is a serious risk to our business at this point. 
+
+Comment Herzog, Christian 
+
+Multiple applications not working on cloud instance management.adamos.com 
+I can see that microservices have issues: 
+
+e.g. Zementis-small: 
+[https://management.adamos.com/apps/administration/index.html#/microservices/2592/status] 
+
+and also Apama-ctrl-1c-4g: 
+[https://management.adamos.com/apps/administration/index.html#/microservices/7210/status] 
+
+ "
+unify microservice failed to fetch the data from datalake,"platform Name: solenis-azure-prod.eastus.cloudapp.azure.com 
+Address: 20.81.29.242 
+Aliases: cloud.iot.solenis.com 
+
+Instance is unify-scope-t478071 
+
+messages from screenshot 
+nit ORDER BY ""timewith0ffset"" DESC LIMIT seee 
+[http nio-8e exec-ll] c.s.c.u.api.unifiecmeasurementsservice 
+Dremio response: 
+2e22-12-23 ERROR 13 
+status Code: 92; response body 
+
+{""error"": ""Microservice/Bad gateway"", ""message"" : ""Microservice not available Connection refused : Connection for request 443880762e2S7b79sgee1793Seaa4øea already closed"" , ""info"" :""https://b.m•/.cumulocity.com / guides/reference-guide/#a-name-error-reporting-a-error-reporti ng""} 
+
+
+[httpnio-8e exec-2] c.s.c .u.api.Unifiedt•kasurementsService 
+: Dremio response: status 
+2e22-12-23 ERROR 13 
+code: 592; response body {""error"" gateway"" ""message"" : ""Microservice not available Connection refused : 
+
+Hello, 
+We have paid for this unify microservice which is developed by the SAG professional services. 
+From yesterday microservice is throwing an error where it fails to fetch the data from the datalake, and due to this our production environment been affected and dashboards are not getting data to trend. 
+I’ve attached the error from the logs. 
+Thanks, 
+Saif 
++91 9431810480"
+CLONE - [Gardner Denver] CEP issues in GD tenant,"Tenant: https://industrials.cas.irco.com/apps/cockpit/index.html
+
+For logging to the tenant, use sysadmin crendentials.
+
+Customer reported the below issue:-
+
+We sent to Daniel Primm an email describing the issue we are experience with alarms forwarding.
+We identified more than 5,000 smart rules caused by CEP overload.
+
+Could you please let us know why the users can create Smart Rules? We thought, after previous updates, that this feature is no longer available for users. 
+
+There are several reasons that could to lead to the overload:
+
+- Slow Smartrules as you mentioned
+- Increase of traffic (I saw that additional compressors were added)
+- General issue of the CEP container
+
+Also, is it possible to make disable the creation of Smart Rules by the users from now on?
+
+------------------------------------
+
+Internal Inputs from Tomislav:
+
+
+This is the issue: 
+
+2021-10-14 12:38:00[qtt-messaging-68] - industrials/device_iconn-sn-A10WKL | RaiseAlarmQueueRejectionCallback | 105 - com.nsn.cumulocity.shared-components.common-utils - 1007.0.32 | WARN cep-queue for key industrials is full, rejecting 1 elements from 50000
+
+grep -i cepServer.queue.limit /etc/cumulocity/*
+/etc/cumulocity/cumulocity-core-default.properties:cepServer.queue.limit=250000
+/etc/cumulocity/cumulocity-core.properties:cepServer.queue.limit = 500000
+
+Default and old limit for queue is 250000. now it's increased to 500000.
+
+There are 5 active tenants on GD and cep queue is devided. it was 250k in total and deviced by 5 -> was 50k for industrial tenant. Now it will be 100k. If we still see rejecting we can increase the queue a bit more - also need to keep in mind for core memory as now it has only 32 GB (16 GB for heap). Also, good way would be to delete not-needed tenants. there is one from Daniel and probably not needed.
+
+--> [root@gardnerdenver-core01 ~]# tailf /var/log/cumulocity/error.log | grep -i reject
+2021-10-14 13:01:01[qtt-messaging-76] - industrials/device_iconn-sn-A10NGH | RaiseAlarmQueueRejectionCallback | 105 - com.nsn.cumulocity.shared-components.common-utils - 1007.0.32 | WARN cep-queue for key industrials is full, rejecting 1 elements from 166666
+
+We now have start of rejecting. Now queue for industrials tenant is 166666.
+
+com.espertech.esper.client.hook.EPLMethodInvocationContext@39bbc723] for statement 'durable:smartRule9537976564:GetRuleConfiguration': ThresholdRuleConfigException : Invalid threshold rule configuration. Rule: 9537976564 message: Rule device DataPoint yellow range and red range not present. At least one range must be present."
+Request for investigating the increasing SIM data during C8Y updates.,"Micro Technologies reported the below: 
+
+Dear OPS team, 
+
+They found out that the amount of daily SIM data transmission was dramatically increased during the Day1 C8Y update to Day3 C8Y update. They found this from the management console provided by the SIM service vendor - SORACOM Inc. 
+
+The target subtenants are cumonosu.com prod environment) 
+
+(1) takenaka_kizai 
+(2) aktio_crane 
+
+About the timetable for C8Y updates such as DAY1, DAY2 and DAY3 
+
+DAY1 -> 2021/1/28 C8Y 9.16.4 to 10.5.7 
+DAY2 -> 2021/3/18 C8Y 10.5.7 to 10.6.0 
+DAY3 -> 2021/3/25 C8Y 10.6.0 to 10.6.6 
+
+Before DAY1 and after DAY3 are same level of data transmission at SIM cards.---(A) 
+After DAY1 and before DAY3 are about 3 to 10 times bigger data transmission everyday compared with (A). We didn't touch any gateways at all during the C8Y updates. 
+
+Could you investigate why does this enlargement data transmission at SIM cards happen during the C8Y updates, please? 
+
+Additional incident information: 
+Product Version: 10.6.6 
+"
+Lyreco - URGENT - All machines are offline since 10 December,"Customer reported the below after the log4j exploit on Friday. No data can be transmitted currently, therefore they would like to get this investigated on priority and resolve. 
+
+---------------------- 
+Unfortunately we had to notice that since Friday night no data was processed in the system and the machines are therefore displayed as offline. 
+
+No events were processed and also no sales data was played into our SAP. 
+
+This is a very urgent issue that has to be fixed. 
+
+At the same time, *you must check whether the data that was not processed by the system will be processed later or whether we have to expect revenue losses.* 
+
+We from our side have to state that currently no data from our devices are processed by the VendMe system and thus a great risk of revenue losses is to be expected. 
+
+Best Regards, 
+Angelo Sebben 
+---------------------- 
+
+--> As of now, support has informed customer about the current status of the actions taken due to log4j exploit.... 
+
+
++Latest update from customer+: - 
+
+We still have to note that the VendMe system is currently not working correctly. 
+
+Sales from our vending machines are not logged / VendMe app is not working correctly or not at all. 
+
+Currently I have to say that the system in this form is not usable for our business. 
+
+I hope that soon a solution is in sight and that at the same time the in the meantime delivered unprocessed sales data will still be submitted and processed in the platform...."
+APAMA is not working after Cumulocity IoT Maintenance on Prod,"{*}Affected System{*}: 
+
++Parent Tenant:+ 
+
+Tenant ID: t134917764 
+Tenant URL: acciona.cumulocity.com 
+
+Apama MS subscribed: Apama-ctrl-smartrulesmt 
+Apama version: 25.122.0 
+
++Subtenant:+ 
+
+Tenant ID: t195481554 
+Tenant URL: zeroiot.cumulocity.com 
+
+{*}Problem Description{*}:  
+
+Customer is facing a problem in APAMA after the intervention carried out in Cumulocity yesterday on 21st May. 
+
+There are several OOM and Apama Connectivity errors in logs as below. 
+
++Correlator Errors:+ 
+2024-05-22 11:28:15.293 INFO [139984082489344] - -XX:+HeapDumpOnOutOfMemoryError 
+2024-05-22 11:28:19.378 INFO [139982378362624] - Added type com.apama.cumulocity.Error 
+2024-05-22 11:28:30.649 ERROR [139978800592640:CumulocityLongPollingTransport-scheduler-1] - <connectivity.ApamaConnectivityForCumulocityIoT.CumulocityIoT> Error when subscribing channel: /alarms/*, error: 402::Unknown client 
+2024-05-22 11:28:35.056 ERROR [139978782713600:CumulocityLongPollingTransport-scheduler-3] - <connectivity.ApamaConnectivityForCumulocityIoT.CumulocityIoT> Error when subscribing channel: /managedobjects/*, error: 402::Unknown client 
+
+  
+
+Please investigate it and resolve as soon as possible. 
+
+Note: Customer confirmed the issue happens in all subtenants of Acciona."
+Delete tenant t401727098,"*Necessary iTrac information (Please remove those items not applicable)* 
+*Affected system* 
+
+SAG Cloud region: EMEA 
+
+Customer: Eppendorf SE 7517606 
+
+*Description of the Problem:* 
+
+Hi, the customer has asked us to delete the tenant *t401727098* 
+
+The tenant is on *EMEA instance*"
+Apama logs from tenant: https://servicehub.iot.hillrom.com,Need Apama logs 7 December 2022 for tenant: [https://servicehub.iot.hillrom.com|https://servicehub.iot.hillrom.com/] if possible.
+"""Node is not ready"" error in Apama-ctrl-starter in customer subtenant","*Affected system* 
+
+Tenant URL: https://ifm-customer-ca.io-key.ifm/ 
+Version: 10.15.0.278 
+
+Username: support 
+Password: ru8R/93M?2wOl) 
+
+Apama-model: RBCC-23F-DCW LD 
+https://ifm-customer-ca.io-key.ifm/apps/streaminganalytics/index.html#/analyticsmodels/models/95080019 
+
+*Description of the Problem:* 
+
+In one of the Autosen’s c8y sub-tenant “https://ifm-customer-ca.io-key.ifm/; one of their Apama starter model ""RBCC-23F-DCW LD"" is not working since January 19th, 2023. 
+There’s an alarm “*Node is not ready*” since the same day. On the same day, there was an update of C8Y to 10.15: https://status.cumulocity.com/incidents/xqy6v4r1wr5j 
+
+Cockpit version: 
+Backend: 1015.0.218 
+UI: 1011.0.12 
+
+*Is this an Apama issue or could be related to UI mismatch or anything else?* 
+
+
+We’ve found that the Apama UI and backend are both 10.15, only the cockpit is still 10.11 which should not be a problem, should it? Either way, customer is using the same configuration on several subtenants and they are not facing any problems. 
+
+What we can see is that data points generated in the Apama model are missing. e.g. on January 19th, 13:00. They start appearing later. The missing data points correspond to the “node not ready” alarm message. 
+What is the reason for the “node is not ready” alarm? 
+
+What is the reason for 116 alarms “node is not ready”? Last one was on 19.02.2023, 20:16:09 without any user action. There’s definitely something wrong. 
+
+Please see the diagnostics logs attached."
+Deploy 'Report-agent' microservice to 'https://management.machines'cloud',"After the upgrade to 10.10.0.12 on machines.cloud, 'Report-agent' microservice is totally missing and wasn't deployed. 
+
+Therefore, customer gets the below error while accessing the Export section in Cockpit. 
+
+{ 
+""message"": ""Microservice reporting not found."", 
+""error"": ""microservice/Not Found"", 
+""info"": ""https://www.cumulocity.com/guides/reference-guide/#a-name-error-reporting-a-error-reporting"" 
+} 
+
+I confirmed with R&D - this issue is occurring due to missing 'Report-agent' microservice. 
+
+Please deploy 'Report-agent' microservice to 'https://management.machines.cloud/' and all its subtenants......"
+Apama component is down,"tenant [https://aifluxtrack2.apj.cumulocity.com|https://aifluxtrack2.apj.cumulocity.com/] 
+SAG Cloud region: APC _________________ Domain .apj.cumulocity.com Version __________________ 
+*Affected tenant* aifluxtrack2.apj.cumulocity.com 
+Tenant:  [aifluxtrack2|https://aifluxtrack2.apj.cumulocity.com/] 
+Enterprise Tenant? not specified. 
+System accessible by R&D? Not known 
+*Application: Apama* 
+
+*Microservice:* 
+* (URL in ""Own applications""):  apama 
+* Microservice origin:  SAG 
+* Cumulocity product microservice. Version 10.11 
+* GCS custom microservice. Author/Contact _______________ 
+
+Apama component is down on the C8Y tenant ([https://aifluxtrack2.apj.cumulocity.com/|https://eur04.safelinks.protection.outlook.com/?url=https%3A%2F%2Faifluxtrack2.apj.cumulocity.com%2F&data=05%7C01%7CSubodh.Kumar%40softwareag.com%7C15b7ce2e15b04c8563d408dacde08e06%7Cd9662eb9ad984e74a8a204ed5d544db6%7C1%7C0%7C638048661576371622%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=h%2FmQYYVo1%2Ff0NNrcVZDMg%2F6EmOErBD1jwHoSuj9e8Z8%3D&reserved=0]). Can you pls urgenly look into this and provide the required assistance to get the component up and running. We have Business Users validating the solution in the next 30 mins and without the Apama component, the solution is broken. Appreciate your prompt response. "
+[Gardner Denver] CEP engine overload,"*Affected system* 
+
+Gardner Denver - Ingersoll Rand: https://industrials.cas.irco.com/ 
+
+*Description of the Problem:* 
+
+Please offer us support and restart the CEP engine. Yesterday afternoon a new overload event occurred."
+How to login to Tenant URL,"There needs to be a change to the defined administrator for tenant t334450491 mki.emea.cumulocity.com. 
+  
+Please make the Administrator [takanashi-tatsuya@mki.co.jp|mailto:takanashi-tatsuya@mki.co.jp] 
+  
+Tatsuya Takanashi 
+  
+Phone: +81- 80 6518 3121"
+Microservice log Cloud-remote-access from iot.greenflex.com needed,"Hello, 
+
+please download Microservice log Cloud-remote-access from iot.greenflex.com from Dec 14 12:30-12:40 UTC 
+
+I found no way to to this in Graylog. If there is a way, please let me know it. 
+
+Thanks, Christian........."
