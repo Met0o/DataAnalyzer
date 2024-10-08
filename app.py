@@ -11,11 +11,8 @@ from multiprocessing import Queue, Pool
 from tkinter import ttk, filedialog, messagebox
 
 client = OpenAI(
-    api_key = "sk-xBebXM3g7nCFklBt_SPqHz5PpU593i6RaDXq20gk9mT3BlbkFJPiETm1egY4MbvB-hWthOoSM2-ktBCfYGFKAlTO-EwA",
+    api_key = "",
 )
-
-# meto sk-Qrho3uAETH1KoJsptvsQrZfcq917vf5NLr9FVIemxKT3BlbkFJkAS0NJNHcTN2f421pfDPXC9yFr_6K9Ul4q8wjEQQMA
-# rumi sk-xBebXM3g7nCFklBt_SPqHz5PpU593i6RaDXq20gk9mT3BlbkFJPiETm1egY4MbvB-hWthOoSM2-ktBCfYGFKAlTO-EwA
 
 # review both text columns and categorize if each row represents an incident or a ticket considering the ITIL framework. use the words ticker and incident only. do not explain yourself
 
