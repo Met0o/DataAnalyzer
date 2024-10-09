@@ -1,7 +1,10 @@
 import os
+import sys
 import time
+import json
 import logging
 import threading
+import traceback
 import pandas as pd
 import tkinter as tk
 import multiprocessing
@@ -13,12 +16,33 @@ from tkinter import ttk, filedialog, messagebox
 
 # review both text columns and categorize if each row represents an incident or a service request considering the ITIL framework. use the words incident and service request only. do not explain yoursel.
 
-logging.basicConfig(level=logging.INFO)
+class JSONFormatter(logging.Formatter):
+    def format(self, record):
+        log_record = {
+            'time': self.formatTime(record, self.datefmt),
+            'level': record.levelname,
+            'logger': record.name,
+            'message': record.getMessage(),
+        }
+        return json.dumps(log_record)
+
+def setup_json_logging():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    console_handler = logging.StreamHandler(sys.stdout)
+    
+    console_handler.setLevel(logging.INFO)
+    
+    json_formatter = JSONFormatter()
+    console_handler.setFormatter(json_formatter)
+    logger.addHandler(console_handler)
+    openai_logger = logging.getLogger('openai')
+    openai_logger.setLevel(logging.DEBUG)
+    openai_logger.propagate = True
+
 MAX_INPUT_TOKENS = 2048
 
-client = OpenAI(
-    api_key = "",
-)
+client = OpenAI(api_key = "")
 
 class ExcelAnalyzerApp(tk.Tk):
     def __init__(self):
@@ -41,6 +65,15 @@ class ExcelAnalyzerApp(tk.Tk):
         self.instruction_entry = ScrolledText(self, height=10, width=70, wrap=tk.WORD)
         self.instruction_entry.insert(tk.INSERT, "E.g., 'Analyze sentiment of comments'...")
         self.instruction_entry.pack(pady=10)
+        
+        # Model Selection Label
+        ttk.Label(self, text="Select AI model for analysis:").pack(pady=5)
+
+        # Model Selection Combobox
+        self.model_var = tk.StringVar()
+        self.model_var.set("gpt-4o")  # Set a default value
+        self.model_selection = ttk.Combobox(self, textvariable=self.model_var, values=["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"], state="readonly")
+        self.model_selection.pack(pady=5)
 
         # File Selection Button
         ttk.Button(self, text="Select Data File", command=self.select_file).pack(pady=15)
@@ -56,20 +89,6 @@ class ExcelAnalyzerApp(tk.Tk):
         # Status Label
         self.status_label = ttk.Label(self, text="", font=("Helvetica", 10, "italic"))
         self.status_label.pack(pady=5)
-
-    # def create_widgets(self):
-        
-    #     ttk.Label(self, text="Enter instructions for analysis before selecting a file:").pack(pady=5)
-        
-    #     self.instruction_entry = tk.Text(self, height=20, width=70)
-    #     self.instruction_entry.pack(pady=5)
-        
-    #     ttk.Button(self, text="Select Data File", command=self.select_file).pack(pady=10)
-        
-    #     self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
-    #     self.progress.pack(pady=10)
-    #     self.status_label = ttk.Label(self, text="")
-    #     self.status_label.pack(pady=5)
 
     def select_file(self):
         file_path = filedialog.askopenfilename(initialdir='/data', filetypes=[("Excel and CSV files", "*.xlsx *.xls *.csv")])
@@ -103,14 +122,16 @@ class ExcelAnalyzerApp(tk.Tk):
             self.update_status("Analyzing...")
             self.update()
             self.pool = Pool()
+            
             manager = multiprocessing.Manager()
             return_dict = manager.dict()
             jobs = []
 
             for idx, text in enumerate(input_texts):
                 text = text[:MAX_INPUT_TOKENS]
+                model_name = self.model_var.get()
                 prompt = f"{instructions}\n\nText: {text}"
-                job = self.pool.apply_async(self.call_openai_api, args=(idx, prompt, return_dict))
+                job = self.pool.apply_async(self.call_openai_api, args=(idx, prompt, return_dict, model_name))
                 jobs.append(job)
 
             while any(not job.ready() for job in jobs):
@@ -119,6 +140,7 @@ class ExcelAnalyzerApp(tk.Tk):
                 self.update_progress(progress_percent)
                 self.update()
                 time.sleep(0.1)
+                
             time.sleep(5)
             self.pool.close()
             self.pool.join()
@@ -212,10 +234,10 @@ class ExcelAnalyzerApp(tk.Tk):
         window.geometry(f"+{pos_x}+{pos_y}")
 
     @staticmethod
-    def call_openai_api(idx, prompt, return_dict):
+    def call_openai_api(idx, prompt, return_dict, model_name):
         try:
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model=model_name,
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=100
             )
@@ -255,4 +277,5 @@ class ExcelAnalyzerApp(tk.Tk):
 
 if __name__ == "__main__":
     app = ExcelAnalyzerApp()
+    setup_json_logging()
     app.mainloop()
