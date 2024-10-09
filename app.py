@@ -8,9 +8,10 @@ import multiprocessing
 import concurrent.futures
 from openai import OpenAI
 from multiprocessing import Queue, Pool
+from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk, filedialog, messagebox
 
-# review both text columns and categorize if each row represents an incident or a ticket considering the ITIL framework. use the words ticker and incident only. do not explain yourself
+# review both text columns and categorize if each row represents an incident or a service request considering the ITIL framework. use the words incident and service request only. do not explain yoursel.
 
 logging.basicConfig(level=logging.INFO)
 MAX_INPUT_TOKENS = 2048
@@ -26,21 +27,49 @@ class ExcelAnalyzerApp(tk.Tk):
         self.geometry("600x500")
         self.create_widgets()
         self.queue = Queue()
-        self.pool = 10
+        self.pool = Pool(processes=multiprocessing.cpu_count())
 
     def create_widgets(self):
-        
-        ttk.Label(self, text="Enter instructions for analysis before selecting a file:").pack(pady=5)
-        
-        self.instruction_entry = tk.Text(self, height=20, width=70)
-        self.instruction_entry.pack(pady=5)
-        
-        ttk.Button(self, text="Select Data File", command=self.select_file).pack(pady=10)
-        
+        style = ttk.Style()
+        style.configure("TButton", padding=6, relief="flat", background="#8EC5FC")
+        style.configure("TLabel", font=("Helvetica", 10), foreground="#4B4B4B")
+
+        # Instruction Label
+        ttk.Label(self, text="Enter instructions for analysis before selecting a file:").pack(pady=10)
+
+        # Instruction Entry Box with Scroll
+        self.instruction_entry = ScrolledText(self, height=10, width=70, wrap=tk.WORD)
+        self.instruction_entry.insert(tk.INSERT, "E.g., 'Analyze sentiment of comments'...")
+        self.instruction_entry.pack(pady=10)
+
+        # File Selection Button
+        ttk.Button(self, text="Select Data File", command=self.select_file).pack(pady=15)
+
+        # Selected File Label
+        self.file_label = ttk.Label(self, text="No file selected", foreground="gray")
+        self.file_label.pack(pady=5)
+
+        # Progress Bar
         self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
         self.progress.pack(pady=10)
-        self.status_label = ttk.Label(self, text="")
+
+        # Status Label
+        self.status_label = ttk.Label(self, text="", font=("Helvetica", 10, "italic"))
         self.status_label.pack(pady=5)
+
+    # def create_widgets(self):
+        
+    #     ttk.Label(self, text="Enter instructions for analysis before selecting a file:").pack(pady=5)
+        
+    #     self.instruction_entry = tk.Text(self, height=20, width=70)
+    #     self.instruction_entry.pack(pady=5)
+        
+    #     ttk.Button(self, text="Select Data File", command=self.select_file).pack(pady=10)
+        
+    #     self.progress = ttk.Progressbar(self, orient=tk.HORIZONTAL, length=500, mode='determinate')
+    #     self.progress.pack(pady=10)
+    #     self.status_label = ttk.Label(self, text="")
+    #     self.status_label.pack(pady=5)
 
     def select_file(self):
         file_path = filedialog.askopenfilename(initialdir='/data', filetypes=[("Excel and CSV files", "*.xlsx *.xls *.csv")])
