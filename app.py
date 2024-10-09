@@ -10,7 +10,6 @@ from openai import OpenAI
 from multiprocessing import Queue, Pool
 from tkinter import ttk, filedialog, messagebox
 
-
 # review both text columns and categorize if each row represents an incident or a ticket considering the ITIL framework. use the words ticker and incident only. do not explain yourself
 
 logging.basicConfig(level=logging.INFO)
@@ -31,9 +30,9 @@ class ExcelAnalyzerApp(tk.Tk):
 
     def create_widgets(self):
         
-        ttk.Label(self, text="Enter instructions for analysis:").pack(pady=5)
+        ttk.Label(self, text="Enter instructions for analysis before selecting a file:").pack(pady=5)
         
-        self.instruction_entry = tk.Text(self, height=5, width=70)
+        self.instruction_entry = tk.Text(self, height=20, width=70)
         self.instruction_entry.pack(pady=5)
         
         ttk.Button(self, text="Select Data File", command=self.select_file).pack(pady=10)
@@ -112,27 +111,30 @@ class ExcelAnalyzerApp(tk.Tk):
             self.reset_progress()
 
     def read_data_file(self, file_path):
-        file_ext = os.path.splitext(file_path)[1].lower()
-        try:
-            if file_ext == '.xlsx':
-                df = pd.read_excel(file_path, engine='openpyxl')
-            elif file_ext == '.xls':
-                df = pd.read_excel(file_path, engine='xlrd')
-            elif file_ext == '.csv':
-                df = pd.read_csv(file_path)
-            else:
-                messagebox.showerror("Error", "Unsupported file format. Please select an Excel or CSV file.")
+            file_ext = os.path.splitext(file_path)[1].lower()
+            try:
+                if file_ext == '.xlsx':
+                    df = pd.read_excel(file_path, engine='openpyxl')
+                elif file_ext == '.xls':
+                    df = pd.read_excel(file_path, engine='xlrd')
+                elif file_ext == '.csv':
+                    df = pd.read_csv(file_path)
+                else:
+                    messagebox.showerror("Error", "Unsupported file format. Please select an Excel or CSV file.")
+                    self.update_status("")
+                    return None
+                if df.empty:
+                    messagebox.showwarning("Warning", "The selected file is empty.")
+                    self.update_status("")
+                    return None
+                return df
+            except Exception as e:
+                import traceback
+                error_message = traceback.format_exc()
+                logging.error(f"Failed to read the data file:\n{error_message}")
+                messagebox.showerror("Error", f"Failed to read the data file:\n{e}")
                 self.update_status("")
                 return None
-            if df.empty:
-                messagebox.showwarning("Warning", "The selected file is empty.")
-                self.update_status("")
-                return None
-            return df
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to read the data file:\n{e}")
-            self.update_status("")
-            return None
 
     def select_columns(self, columns):
         popup = tk.Toplevel(self)

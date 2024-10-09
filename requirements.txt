@@ -1,2 +1,4 @@
 pandas
 openai
+openpyxl
+xlrd
