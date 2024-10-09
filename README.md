@@ -53,8 +53,9 @@ The application is built using the `tkinter` library for UI and leverages `multi
 - **Model Selection**: Pick one of 3 models, GPT-4o being most capable, followed by GPT-4o-mini, and GPT-4-Turbo.
 
 ## Screenshots
-![Main UI](UI.png)
 *Main User Interface of ExcelAnalyzerApp*
+
+![Main UI](UI.png)
 
 ## Notes
 - Make sure you have an active API key for OpenAI to use the application.

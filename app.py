@@ -47,7 +47,7 @@ client = OpenAI(api_key = "")
 class ExcelAnalyzerApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Data Analyzer")
+        self.title("Data Analyzer Made For Rumi")
         self.geometry("600x500")
         self.create_widgets()
         self.queue = Queue()
