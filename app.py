@@ -10,9 +10,6 @@ from openai import OpenAI
 from multiprocessing import Queue, Pool
 from tkinter import ttk, filedialog, messagebox
 
-client = OpenAI(
-    api_key = "",
-)
 
 # review both text columns and categorize if each row represents an incident or a ticket considering the ITIL framework. use the words ticker and incident only. do not explain yourself
 
@@ -20,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 MAX_INPUT_TOKENS = 2048
 
 client = OpenAI(
-    api_key = "...",
+    api_key = "",
 )
 
 class ExcelAnalyzerApp(tk.Tk):
@@ -117,8 +114,10 @@ class ExcelAnalyzerApp(tk.Tk):
     def read_data_file(self, file_path):
         file_ext = os.path.splitext(file_path)[1].lower()
         try:
-            if file_ext in ['.xlsx', '.xls']:
-                df = pd.read_excel(file_path)
+            if file_ext == '.xlsx':
+                df = pd.read_excel(file_path, engine='openpyxl')
+            elif file_ext == '.xls':
+                df = pd.read_excel(file_path, engine='xlrd')
             elif file_ext == '.csv':
                 df = pd.read_csv(file_path)
             else:
@@ -138,7 +137,7 @@ class ExcelAnalyzerApp(tk.Tk):
     def select_columns(self, columns):
         popup = tk.Toplevel(self)
         popup.title("Selector")
-        popup.geometry("250x150")
+        popup.geometry("250x450")
         popup.transient(self)
         popup.grab_set()
 
