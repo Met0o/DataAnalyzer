@@ -1,5 +1,3 @@
-# review both text columns and categorize if each row represents an incident or a service request considering the ITIL framework. use the words incident and service request only. do not explain yoursel.
-
 import os
 import sys
 import time
@@ -42,8 +40,6 @@ def setup_json_logging():
     openai_logger.setLevel(logging.DEBUG)
     openai_logger.propagate = True
 
-MAX_INPUT_TOKENS = 2048
-
 load_dotenv(dotenv_path='./config/.env')
 api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=api_key)
@@ -56,7 +52,6 @@ class ExcelAnalyzerApp(tk.Tk):
         self.geometry("600x500")
         self.create_widgets()
         self.queue = Queue()
-        self.pool = Pool(processes=multiprocessing.cpu_count())
 
     def create_widgets(self):
         style = ttk.Style()
@@ -126,29 +121,22 @@ class ExcelAnalyzerApp(tk.Tk):
             self.reset_progress()
             self.update_status("Analyzing...")
             self.update()
-            self.pool = Pool()
-            
-            manager = multiprocessing.Manager()
-            return_dict = manager.dict()
-            jobs = []
 
-            for idx, text in enumerate(input_texts):
-                text = text[:MAX_INPUT_TOKENS]
-                model_name = self.model_var.get()
-                prompt = f"{instructions}\n\nText: {text}"
-                job = self.pool.apply_async(self.call_openai_api, args=(idx, prompt, return_dict, model_name))
-                jobs.append(job)
-
-            while any(not job.ready() for job in jobs):
-                completed = sum(1 for job in jobs if job.ready())
-                progress_percent = (completed / total) * 100
-                self.update_progress(progress_percent)
-                self.update()
-                time.sleep(0.1)
+            with Pool(processes=multiprocessing.cpu_count()) as pool:
+                manager = multiprocessing.Manager()
+                return_dict = manager.dict()
                 
-            time.sleep(5)
-            self.pool.close()
-            self.pool.join()
+                jobs = [
+                    pool.apply_async(self.call_openai_api, args=(idx, instructions, text, return_dict, self.model_var.get()))
+                    for idx, text in enumerate(input_texts)
+                ]
+
+                while any(not job.ready() for job in jobs):
+                    completed = sum(1 for job in jobs if job.ready())
+                    progress_percent = (completed / total) * 100
+                    self.update_progress(progress_percent)
+                    self.update()
+                    time.sleep(0.1)
 
             responses = [return_dict[i] for i in range(total)]
             df['Analysis'] = responses
@@ -161,35 +149,33 @@ class ExcelAnalyzerApp(tk.Tk):
             self.reset_progress()
 
         except Exception as e:
-            logging.error(f"An unexpected error occurred: {e}")
+            logging.error(f"An unexpected error occurred: {e}", exc_info=True)
             messagebox.showerror("Error", f"An unexpected error occurred:\n{e}")
             self.update_status("")
             self.reset_progress()
 
     def read_data_file(self, file_path):
-            file_ext = os.path.splitext(file_path)[1].lower()
-            try:
-                if file_ext == '.xlsx':
-                    df = pd.read_excel(file_path, engine='openpyxl')
-                elif file_ext == '.xls':
-                    df = pd.read_excel(file_path, engine='xlrd')
-                elif file_ext == '.csv':
-                    df = pd.read_csv(file_path)
-                else:
-                    messagebox.showerror("Error", "Unsupported file format. Please select an Excel or CSV file.")
-                    self.update_status("")
-                    return None
-                if df.empty:
-                    messagebox.showwarning("Warning", "The selected file is empty.")
-                    self.update_status("")
-                    return None
-                return df
-            except Exception as e:
-                error_message = traceback.format_exc()
-                logging.error(f"Failed to read the data file:\n{error_message}")
-                messagebox.showerror("Error", f"Failed to read the data file:\n{e}")
+        try:
+            if file_path.endswith('.xlsx'):
+                df = pd.read_excel(file_path, engine='openpyxl')
+            elif file_path.endswith('.xls'):
+                df = pd.read_excel(file_path, engine='xlrd')
+            elif file_path.endswith('.csv'):
+                df = pd.read_csv(file_path)
+            else:
+                messagebox.showerror("Error", "Unsupported file format. Please select an Excel or CSV file.")
                 self.update_status("")
                 return None
+            if df.empty:
+                messagebox.showwarning("Warning", "The selected file is empty.")
+                self.update_status("")
+                return None
+            return df
+        except Exception as e:
+            logging.error(f"Failed to read the data file: {e}", exc_info=True)
+            messagebox.showerror("Error", f"Failed to read the data file:\n{e}")
+            self.update_status("")
+            return None
 
     def select_columns(self, columns):
         popup = tk.Toplevel(self)
@@ -238,17 +224,17 @@ class ExcelAnalyzerApp(tk.Tk):
         window.geometry(f"+{pos_x}+{pos_y}")
 
     @staticmethod
-    def call_openai_api(idx, prompt, return_dict, model_name):
+    def call_openai_api(idx, instructions, text, return_dict, model_name):
         try:
             response = client.chat.completions.create(
                 model=model_name,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "user", "content": f"{instructions}\n\nText: {text}"}],
                 max_tokens=100
             )
             reply = response.choices[0].message.content.strip()
             return_dict[idx] = reply
         except Exception as e:
-            logging.error(f"OpenAI API error at index {idx}: {e}")
+            logging.error(f"OpenAI API error at index {idx}: {e}", exc_info=True)
             return_dict[idx] = f"Error: {e}"
 
     def update_status(self, message):
@@ -267,16 +253,15 @@ class ExcelAnalyzerApp(tk.Tk):
         return os.path.join(directory, new_filename)
 
     def save_output_file(self, df, output_path):
-        file_ext = os.path.splitext(output_path)[1].lower()
         try:
-            if file_ext in ['.xlsx', '.xls']:
+            if output_path.endswith('.xlsx') or output_path.endswith('.xls'):
                 df.to_excel(output_path, index=False)
-            elif file_ext == '.csv':
+            elif output_path.endswith('.csv'):
                 df.to_csv(output_path, index=False)
             else:
                 pass
         except Exception as e:
-            messagebox.showerror("Error", f"Failed to save the output file:\n{e}")
+            messagebox.showerror("Error", f"Failed to save the output file: {e}")
             self.update_status("")
 
 if __name__ == "__main__":
