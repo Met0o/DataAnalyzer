@@ -2,11 +2,11 @@
 
 ## Overview
 
-I developed this app for my wife. 
+I developed this application for my wife. 
 
 DataAnalyzerApp is a Python-based graphical application that allows for customizable instruction-based analysis using OpenAI's Model API. It can handle data files in Excel and CSV formats. The app provides a simple user interface for specifying analysis instructions, selecting data columns, and executing custom NLP analysis.
 
-The application is built using the `tkinter` library for UI and leverages `multiprocessing` to speed up the analysis by using allocating available CPU cores.
+The application is built using the `tkinter` library for UI and leverages `multiprocessing` to speed up the analysis by allocating available CPU cores.
 
 ## Features
 - Customizable Analysis Instructions: 
@@ -54,23 +54,20 @@ The application is built using the `tkinter` library for UI and leverages `multi
    python app.py
    ```
 2. Enter the instructions for the type of analysis you wish to perform in the text box.
-   - In the text box labeled "Enter instructions for analysis before selecting a file", input the instructions for the type of analysis you wish to perform.
-   Example: "Analyze the sentiment of the following text and classify it as Positive, Negative, or Neutral."
-   Example: "Compare the names in the two lists and reply with 'True' if they match or 'False' if they do not."
+   - Example: "Analyze the sentiment of the following text and classify it as Positive, Negative, or Neutral."
+   - Example: "Compare the names in the two lists and reply with 'True' if they match or 'False' if they do not."
 3. Click the "Select Data File" button to choose an Excel or CSV file.
 4. A pop-up window will allow you to select the columns for analysis.
 5. Select Analysis Type: Choose the analysis mode by selecting either "Row Analysis" or "Column Analysis":
-   - Row Analysis: The model will process each row individually.
+   - Row Analysis: The model will process each row individually but columnwise
    - Column Analysis: The model will compare data across columns, useful for comparing data that is not aligned by rows.
 5. Pick one of the avaialble models to perform the analysis.
 6. The analysis progress will be displayed using the progress bar.
-7. Once complete, the analyzed file will be saved with a suffix `_analyzed` in the original file's directory.
+7. Once complete, the analyzed file will be saved with a suffix `_analyzed` in the input file's directory.
 
 ## Configuration
 - **CPU Cores**: The app automatically detects the number of available CPU cores using `multiprocessing.cpu_count()`, allowing the workload to be distributed efficiently.
 - **Output File**: The analyzed data is saved in the same format as the original file, with `_analyzed` appended to the filename.
-- **Analysis Instructions**: Provide specific instructions in the text box for how the analysis should be conducted (e.g., "Perform sentiment analysis on the comments").
-- **Model Selection**: Pick one of 3 models, GPT-4o being most capable, followed by GPT-4o-mini, and GPT-4-Turbo.
 
 ## Examples
 Row Analysis Example
