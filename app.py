@@ -79,7 +79,7 @@ class ExcelAnalyzerApp(tk.Tk):
         self.analysis_type_var = tk.StringVar()
         self.analysis_type_var.set("row_analysis")
 
-        ttk.Radiobutton(self, text="Row Analysis", variable=self.analysis_type_var, value="row_analysis").pack(anchor=tk.W)
+        ttk.Radiobutton(self, text="Row Analysis - e.g.:  ]", variable=self.analysis_type_var, value="row_analysis").pack(anchor=tk.W)
         ttk.Radiobutton(self, text="Column Analysis", variable=self.analysis_type_var, value="column_analysis").pack(anchor=tk.W)
 
         # Model Selection Label

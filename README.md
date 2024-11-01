@@ -9,16 +9,26 @@ DataAnalyzerApp is a Python-based graphical application that allows for customiz
 The application is built using the `tkinter` library for UI and leverages `multiprocessing` to speed up the analysis by using allocating available CPU cores.
 
 ## Features
-- Customizable Analysis Instructions: Input your own instructions for the AI model to perform on the data.
-- Select Data Files: Analyze data from Excel (.xlsx, .xls) or CSV (.csv) files.
-- Analysis Modes: Choose between row-wise analysis and column-wise analysis.
-- Row Analysis: Analyze data row by row, suitable for tasks like sentiment analysis or data classification.
-- Column Analysis: Compare data between two columns, even when the data is not aligned by rows, suitable for tasks like data lookup or cross-referencing.
-- Select Specific Columns: Choose which columns in your data file to include in the analysis.
-- Model Selection: Choose from several OpenAI GPT models for analysis.
-- Concurrent Processing: Supports concurrent processing for faster analysis by utilizing multiple CPU cores.
-- Progress Monitoring: Progress bar and status updates to inform users during long-running analyses.
-- Error Handling and Logging: Provides informative error messages and logs errors for debugging purposes.
+- Customizable Analysis Instructions: 
+   - Input your own instructions for the AI model to perform on the data.
+- Select Data Files: 
+   - Analyze data from Excel (.xlsx, .xls) or CSV (.csv) files.
+- Analysis Modes: 
+   - Choose between row-wise analysis and column-wise analysis.
+- Row Analysis: 
+   - Analyze data row by row, suitable for tasks like sentiment analysis or data classification.
+- Column Analysis: 
+   - Compare data between two columns, even when the data is not aligned by rows, suitable for tasks like data lookup or cross-referencing.
+- Select Specific Columns: 
+   - Choose which columns in your data file to include in the analysis.
+- Model Selection: 
+   - Choose from several OpenAI GPT models for analysis.
+- Concurrent Processing: 
+   - Supports concurrent processing for faster analysis by utilizing multiple CPU cores.
+- Progress Monitoring: 
+   - Progress bar and status updates to inform users during long-running analyses.
+- Error Handling and Logging: 
+   - Provides informative error messages and logs errors for debugging purposes.
 
 ## Prerequisites
 - Python 3.10 or higher
