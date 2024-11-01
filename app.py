@@ -1,5 +1,3 @@
-# review both text columns and categorize if each row represents an incident or a service request considering the ITIL framework. use the words incident and service request only. do not explain yoursel.
-
 import os
 import sys
 import time
@@ -16,6 +14,9 @@ from dotenv import load_dotenv
 from multiprocessing import Queue, Pool
 from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk, filedialog, messagebox
+
+# review both text columns and categorize if each row represents an incident or a service request considering the ITIL framework. use the words incident and service request only. do not explain yoursel.
+# Compare the names in the two lists and reply with "True" if they match or "False" if they do not. For each pair, provide the result in the format "name1 - name2: result".
 
 
 class JSONFormatter(logging.Formatter):
@@ -70,7 +71,17 @@ class ExcelAnalyzerApp(tk.Tk):
         self.instruction_entry = ScrolledText(self, height=10, width=70, wrap=tk.WORD)
         self.instruction_entry.insert(tk.INSERT, "E.g., 'Analyze sentiment of comments'...")
         self.instruction_entry.pack(pady=10)
-        
+
+        # Analysis Type Label
+        ttk.Label(self, text="Select analysis type:").pack(pady=5)
+
+        # Analysis Type Radio Buttons
+        self.analysis_type_var = tk.StringVar()
+        self.analysis_type_var.set("row_analysis")
+
+        ttk.Radiobutton(self, text="Row Analysis", variable=self.analysis_type_var, value="row_analysis").pack(anchor=tk.W)
+        ttk.Radiobutton(self, text="Column Analysis", variable=self.analysis_type_var, value="column_analysis").pack(anchor=tk.W)
+
         # Model Selection Label
         ttk.Label(self, text="Select AI model for analysis:").pack(pady=5)
 
@@ -94,6 +105,9 @@ class ExcelAnalyzerApp(tk.Tk):
         # Status Label
         self.status_label = ttk.Label(self, text="", font=("Helvetica", 10, "italic"))
         self.status_label.pack(pady=5)
+
+    def select_mode(self):
+        return self.analysis_type_var.get()
 
     def select_file(self):
         file_path = filedialog.askopenfilename(initialdir='/data', filetypes=[("Excel and CSV files", "*.xlsx *.xls *.csv")])
@@ -120,38 +134,96 @@ class ExcelAnalyzerApp(tk.Tk):
                 self.update_status("")
                 return
 
-            input_texts = df[columns_to_analyze].astype(str).agg(' '.join, axis=1).tolist()
-            total = len(input_texts)
+            # Introduce mode selection
+            mode = self.select_mode()
+            if mode == "row_analysis":
+                # Row-wise processing
+                def format_row(row):
+                    formatted_text = ''
+                    for col in columns_to_analyze:
+                        formatted_text += f"{col}: {row[col]}\n"
+                    return formatted_text.strip()
 
-            self.reset_progress()
-            self.update_status("Analyzing...")
-            self.update()
-            self.pool = Pool()
-            
-            manager = multiprocessing.Manager()
-            return_dict = manager.dict()
-            jobs = []
+                input_texts = df.apply(format_row, axis=1).tolist()
+                total = len(input_texts)
 
-            for idx, text in enumerate(input_texts):
-                text = text[:MAX_INPUT_TOKENS]
-                model_name = self.model_var.get()
-                prompt = f"{instructions}\n\nText: {text}"
-                job = self.pool.apply_async(self.call_openai_api, args=(idx, prompt, return_dict, model_name))
-                jobs.append(job)
-
-            while any(not job.ready() for job in jobs):
-                completed = sum(1 for job in jobs if job.ready())
-                progress_percent = (completed / total) * 100
-                self.update_progress(progress_percent)
+                self.reset_progress()
+                self.update_status("Analyzing...")
                 self.update()
-                time.sleep(0.1)
-                
-            time.sleep(5)
-            self.pool.close()
-            self.pool.join()
+                self.pool = Pool()
 
-            responses = [return_dict[i] for i in range(total)]
-            df['Analysis'] = responses
+                manager = multiprocessing.Manager()
+                return_dict = manager.dict()
+                jobs = []
+
+                for idx, text in enumerate(input_texts):
+                    text = text[:MAX_INPUT_TOKENS]
+                    model_name = self.model_var.get()
+                    prompt = f"{instructions}\n\n{text}"
+                    job = self.pool.apply_async(self.call_openai_api, args=(idx, prompt, return_dict, model_name))
+                    jobs.append(job)
+
+                while any(not job.ready() for job in jobs):
+                    completed = sum(1 for job in jobs if job.ready())
+                    progress_percent = (completed / total) * 100
+                    self.update_progress(progress_percent)
+                    self.update()
+                    time.sleep(0.1)
+
+                self.pool.close()
+                self.pool.join()
+
+                responses = [return_dict[i] for i in range(total)]
+                df['Analysis'] = responses
+
+            else:
+                # Column-wise processing
+                names1 = df[columns_to_analyze[0]].dropna().astype(str).tolist()
+                names2 = df[columns_to_analyze[1]].dropna().astype(str).tolist()
+
+                # Ensure both lists are the same length
+                min_length = min(len(names1), len(names2))
+                names1 = names1[:min_length]
+                names2 = names2[:min_length]
+
+                # Create name pairs
+                name_pairs = [f"{name1} - {name2}" for name1, name2 in zip(names1, names2)]
+
+                # Prepare prompt with name pairs
+                prompt = f"{instructions}\n\nName pairs:\n"
+                for pair in name_pairs:
+                    prompt += f"{pair}\n"
+
+                self.reset_progress()
+                self.update_status("Analyzing...")
+                self.update()
+
+                # Call the API synchronously
+                model_name = self.model_var.get()
+                response = self.call_openai_api_sync(prompt, model_name)
+
+                # Update progress to 100%
+                self.update_progress(100)
+                self.update()
+
+                # Parse the response
+                analysis_lines = response.strip().split('\n')
+                analysis_dict = {}
+                for line in analysis_lines:
+                    if '-' in line and ':' in line:
+                        pair, result = line.split(':')
+                        name1, name2 = pair.strip().split(' - ')
+                        analysis_dict[(name1.strip(), name2.strip())] = result.strip()
+
+                # Map results back to DataFrame
+                analysis = []
+                for name1, name2 in zip(names1, names2):
+                    result = analysis_dict.get((name1, name2), 'Unknown')
+                    analysis.append(result)
+
+                df = df.iloc[:min_length]
+                df['Analysis'] = analysis
+
             output_path = self.get_output_path(file_path)
             self.save_output_file(df, output_path)
 
@@ -250,6 +322,19 @@ class ExcelAnalyzerApp(tk.Tk):
         except Exception as e:
             logging.error(f"OpenAI API error at index {idx}: {e}")
             return_dict[idx] = f"Error: {e}"
+
+    @staticmethod
+    def call_openai_api_sync(prompt, model_name):
+        try:
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=100
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            logging.error(f"OpenAI API error: {e}")
+            return f"Error: {e}"
 
     def update_status(self, message):
         self.status_label.config(text=message)
