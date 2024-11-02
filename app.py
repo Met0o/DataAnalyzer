@@ -87,7 +87,7 @@ class ExcelAnalyzerApp(tk.Tk):
 
         # Model Selection Combobox
         self.model_var = tk.StringVar()
-        self.model_var.set("gpt-4o")
+        self.model_var.set("gpt-4o-mini")
         self.model_selection = ttk.Combobox(self, textvariable=self.model_var, values=["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"], state="readonly")
         self.model_selection.pack(pady=5)
 
@@ -256,6 +256,7 @@ class ExcelAnalyzerApp(tk.Tk):
                     self.update_status("")
                     return None
                 return df
+            
             except Exception as e:
                 error_message = traceback.format_exc()
                 logging.error(f"Failed to read the data file:\n{error_message}")
@@ -264,6 +265,7 @@ class ExcelAnalyzerApp(tk.Tk):
                 return None
 
     def select_columns(self, columns):
+        
         popup = tk.Toplevel(self)
         popup.title("Selector")
         popup.geometry("250x450")
@@ -273,6 +275,7 @@ class ExcelAnalyzerApp(tk.Tk):
         ttk.Label(popup, text="Select columns for analysis:").pack(pady=10)
 
         column_vars = []
+        
         for column in columns:
             var = tk.BooleanVar()
             ttk.Checkbutton(popup, text=column, variable=var).pack(anchor=tk.W)
