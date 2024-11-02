@@ -69,7 +69,7 @@ class ExcelAnalyzerApp(tk.Tk):
 
         # Instruction Entry Box with Scroll
         self.instruction_entry = ScrolledText(self, height=10, width=70, wrap=tk.WORD)
-        self.instruction_entry.insert(tk.INSERT, "E.g., 'Analyze sentiment of comments'...")
+        self.instruction_entry.insert(tk.INSERT, "E.g. 'Review these text columns and categorize if each row represents an incident or a service request' or 'Compare the strings in the two lists and reply with True if they match or False if they do not'.")
         self.instruction_entry.pack(pady=10)
 
         # Analysis Type Label
@@ -79,15 +79,15 @@ class ExcelAnalyzerApp(tk.Tk):
         self.analysis_type_var = tk.StringVar()
         self.analysis_type_var.set("row_analysis")
 
-        ttk.Radiobutton(self, text="Row Analysis - e.g.:  ]", variable=self.analysis_type_var, value="row_analysis").pack(anchor=tk.W)
-        ttk.Radiobutton(self, text="Column Analysis", variable=self.analysis_type_var, value="column_analysis").pack(anchor=tk.W)
+        ttk.Radiobutton(self, text="Row-wise Analysis", variable=self.analysis_type_var, value="row_analysis").pack(anchor=tk.W)
+        ttk.Radiobutton(self, text="Column-wise Analysis", variable=self.analysis_type_var, value="column_analysis").pack(anchor=tk.W)
 
         # Model Selection Label
         ttk.Label(self, text="Select AI model for analysis:").pack(pady=5)
 
         # Model Selection Combobox
         self.model_var = tk.StringVar()
-        self.model_var.set("gpt-4o")  # Set a default value
+        self.model_var.set("gpt-4o")
         self.model_selection = ttk.Combobox(self, textvariable=self.model_var, values=["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"], state="readonly")
         self.model_selection.pack(pady=5)
 
@@ -134,7 +134,7 @@ class ExcelAnalyzerApp(tk.Tk):
                 self.update_status("")
                 return
 
-            # Introduce mode selection
+            # Mode selection
             mode = self.select_mode()
             if mode == "row_analysis":
                 # Row-wise processing
