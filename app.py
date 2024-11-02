@@ -17,7 +17,7 @@ from tkinter import ttk, filedialog, messagebox
 
 # review both text columns and categorize if each row represents an incident or a service request considering the ITIL framework. use the words incident and service request only. do not explain yoursel.
 # Compare the names in the two lists and reply with "True" if they match or "False" if they do not. For each pair, provide the result in the format "name1 - name2: result".
-
+# For the given name, determine if it exists in the provided list of names. Respond with 'True' if it does, and 'False' if it does not. Provide the output in the format 'name: True/False'.
 
 class JSONFormatter(logging.Formatter):
     def format(self, record):
@@ -178,51 +178,65 @@ class ExcelAnalyzerApp(tk.Tk):
 
             else:
                 # Column-wise processing
-                names1 = df[columns_to_analyze[0]].dropna().astype(str).tolist()
-                names2 = df[columns_to_analyze[1]].dropna().astype(str).tolist()
+                names1 = df[columns_to_analyze[0]].astype(str).fillna('').tolist()
+                names2 = df[columns_to_analyze[1]].astype(str).fillna('').tolist()
 
-                # Ensure both lists are the same length
-                min_length = min(len(names1), len(names2))
-                names1 = names1[:min_length]
-                names2 = names2[:min_length]
+                # Create a set of unique names from names2
+                names2_set = set(names2)
 
-                # Create name pairs
-                name_pairs = [f"{name1} - {name2}" for name1, name2 in zip(names1, names2)]
+                # Prepare instructions
+                instructions = self.instruction_entry.get("1.0", tk.END).strip()
+                if not instructions:
+                    messagebox.showwarning("Warning", "Please provide instructions for analysis.")
+                    self.update_status("")
+                    return
 
-                # Prepare prompt with name pairs
-                prompt = f"{instructions}\n\nName pairs:\n"
-                for pair in name_pairs:
-                    prompt += f"{pair}\n"
+                # Prepare the full list of names2
+                names2_list = ', '.join(names2_set)
+
+                # Prepare input prompts
+                input_prompts = []
+                for name1 in names1:
+                    prompt = f"{instructions}\n\nName: {name1}\nList of names: {names2_list}"
+                    input_prompts.append((name1, prompt))
 
                 self.reset_progress()
                 self.update_status("Analyzing...")
                 self.update()
 
-                # Call the API synchronously
+                manager = multiprocessing.Manager()
+                return_dict = manager.dict()
+                jobs = []
                 model_name = self.model_var.get()
-                response = self.call_openai_api_sync(prompt, model_name)
+                total = len(input_prompts)
 
-                # Update progress to 100%
-                self.update_progress(100)
-                self.update()
+                # Initialize a pool of worker processes
+                self.pool = Pool(processes=multiprocessing.cpu_count())
 
-                # Parse the response
-                analysis_lines = response.strip().split('\n')
-                analysis_dict = {}
-                for line in analysis_lines:
-                    if '-' in line and ':' in line:
-                        pair, result = line.split(':')
-                        name1, name2 = pair.strip().split(' - ')
-                        analysis_dict[(name1.strip(), name2.strip())] = result.strip()
+                for idx, (name1, prompt) in enumerate(input_prompts):
+                    # Use apply_async to process prompts concurrently
+                    job = self.pool.apply_async(
+                        ExcelAnalyzerApp.call_openai_api_column,
+                        args=(idx, name1, prompt, return_dict, model_name)
+                    )
+                    jobs.append(job)
 
-                # Map results back to DataFrame
-                analysis = []
-                for name1, name2 in zip(names1, names2):
-                    result = analysis_dict.get((name1, name2), 'Unknown')
-                    analysis.append(result)
+                # Progress tracking
+                while any(not job.ready() for job in jobs):
+                    completed = sum(1 for job in jobs if job.ready())
+                    progress_percent = (completed / total) * 100
+                    self.update_progress(progress_percent)
+                    self.update()
+                    time.sleep(0.1)
 
-                df = df.iloc[:min_length]
-                df['Analysis'] = analysis
+                self.pool.close()
+                self.pool.join()
+
+                # Collect responses
+                analysis_results = [return_dict.get(i, 'Error') for i in range(total)]
+                df['Analysis'] = analysis_results
+
+                self.update_status("Analysis complete.")
 
             output_path = self.get_output_path(file_path)
             self.save_output_file(df, output_path)
@@ -313,32 +327,32 @@ class ExcelAnalyzerApp(tk.Tk):
         window.geometry(f"+{pos_x}+{pos_y}")
 
     @staticmethod
-    def call_openai_api(idx, prompt, return_dict, model_name):
+    def call_openai_api_column(idx, name1, prompt, return_dict, model_name):
         try:
             response = client.chat.completions.create(
                 model=model_name,
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=100
+                temperature=0
+            )
+            reply = response.choices[0].message.content.strip()
+            return_dict[idx] = reply
+        except Exception as e:
+            logging.error(f"OpenAI API error at index {idx} for name '{name1}': {e}")
+            return_dict[idx] = f"Error: {e}"
+
+    @staticmethod
+    def call_openai_api(idx, prompt, return_dict, model_name):
+        try:
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[{"role": "user", "content": prompt}]
             )
             reply = response.choices[0].message.content.strip()
             return_dict[idx] = reply
         except Exception as e:
             logging.error(f"OpenAI API error at index {idx}: {e}")
             return_dict[idx] = f"Error: {e}"
-
-    @staticmethod
-    def call_openai_api_sync(prompt, model_name):
-        try:
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=100
-            )
-            return response.choices[0].message.content.strip()
-        except Exception as e:
-            logging.error(f"OpenAI API error: {e}")
-            return f"Error: {e}"
-
+    
     def update_status(self, message):
         self.status_label.config(text=message)
 
