@@ -69,7 +69,7 @@ class ExcelAnalyzerApp(tk.Tk):
 
         # Instruction Entry Box with Scroll
         self.instruction_entry = ScrolledText(self, height=10, width=70, wrap=tk.WORD)
-        self.instruction_entry.insert(tk.INSERT, "E.g. 'Review these text columns and categorize if each row represents an incident or a service request' or 'Compare the strings in the two lists and reply with True if they match or False if they do not'.")
+        self.instruction_entry.insert(tk.INSERT, "E.g. 'Categorize if each row represents an incident or a service request' or 'Compare the strings in the two lists and reply with True if they match or False if they do not'.")
         self.instruction_entry.pack(pady=10)
 
         # Analysis Type Label
