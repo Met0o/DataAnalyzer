@@ -160,7 +160,7 @@ class ExcelAnalyzerApp(tk.Tk):
                     text = text[:MAX_INPUT_TOKENS]
                     model_name = self.model_var.get()
                     prompt = f"{instructions}\n\n{text}"
-                    job = self.pool.apply_async(self.call_openai_api, args=(idx, prompt, return_dict, model_name))
+                    job = self.pool.apply_async(self.call_openai_api_row, args=(idx, prompt, return_dict, model_name))
                     jobs.append(job)
 
                 while any(not job.ready() for job in jobs):
@@ -341,11 +341,12 @@ class ExcelAnalyzerApp(tk.Tk):
             return_dict[idx] = f"Error: {e}"
 
     @staticmethod
-    def call_openai_api(idx, prompt, return_dict, model_name):
+    def call_openai_api_row(idx, prompt, return_dict, model_name):
         try:
             response = client.chat.completions.create(
                 model=model_name,
-                messages=[{"role": "user", "content": prompt}]
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0
             )
             reply = response.choices[0].message.content.strip()
             return_dict[idx] = reply
