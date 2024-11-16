@@ -13,7 +13,6 @@ from multiprocessing import Queue, Pool
 from tkinter.scrolledtext import ScrolledText
 from tkinter import ttk, filedialog, messagebox
 
-# review both text columns and categorize if each row represents an incident or a service request considering the ITIL framework. use the words incident and service request only. do not explain yoursel.
 # Compare the names in the two lists and reply with "True" if they match or "False" if they do not. For each pair, provide the result in the format "name1 - name2: result".
 # For the given name, determine if it exists in the provided list of names. Respond with 'True' if it does, and 'False' if it does not. Provide the output in the format 'name: True/False'.
 
@@ -63,6 +62,10 @@ class DataProcessor:
         prompts = []
         data_records = selected_data.to_dict(orient='records')
         for idx, record in enumerate(data_records):
+            if not record.get('Names1') or not record.get('Names2'):
+                logging.warning(f"Missing data in row {idx}: {record}")
+                prompts.append("No data to compare.")
+                continue
             try:
                 prompt = instructions.format(**record)
             except KeyError as e:
@@ -131,9 +134,10 @@ class ExcelAnalyzerApp(tk.Tk):
         self.template_var = tk.StringVar()
         self.template_var.set("Select a template")
         templates = [
-            "Categorize entries based on {Column1}",
+            "Review the text in {Column1} and {Column2} and categorize if each row represents an incident or a service request as per the ITIL framework. Use the words 'incident' and 'service request' only. Do not explain your answer.",
+            "Compare the name '{Names1}' with '{Names2}'. If they are the same person (even if the first name and last name are inverted), reply with the name from '{Names1}'. If they are different, reply with 'different person'. Do not explain your answer.",
             "Compare {Column1} with {Column2} and note differences",
-            "Summarize the information in {Column1}"
+
         ]
         self.template_selection = ttk.Combobox(self, textvariable=self.template_var, values=templates, state="readonly")
         self.template_selection.pack(pady=5)
