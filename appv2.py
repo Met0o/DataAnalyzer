@@ -3,12 +3,10 @@ import sys
 import time
 import json
 import logging
-import threading
 import traceback
 import pandas as pd
 import tkinter as tk
 import multiprocessing
-import concurrent.futures
 from openai import OpenAI
 from dotenv import load_dotenv
 from multiprocessing import Queue, Pool
@@ -72,6 +70,7 @@ class DataProcessor:
             prompts.append(prompt)
         return prompts
 
+
 class OpenAIAPIClient:
     def __init__(self, model_name):
         self.model_name = model_name
@@ -87,6 +86,7 @@ class OpenAIAPIClient:
         except Exception as e:
             logging.error(f"OpenAI API error: {e}")
             return f"Error: {e}"
+
 
 class ExcelAnalyzerApp(tk.Tk):
     def __init__(self):
@@ -171,7 +171,7 @@ class ExcelAnalyzerApp(tk.Tk):
             if df is None or df.empty:
                 return
 
-            # Let the user select columns
+            # Selecting columns
             columns_to_analyze = self.select_columns(df.columns)
             if not columns_to_analyze:
                 messagebox.showwarning("Warning", "No columns were selected for analysis.")
@@ -182,13 +182,13 @@ class ExcelAnalyzerApp(tk.Tk):
             processor = DataProcessor(df)
             selected_data = processor.select_data(columns_to_analyze)
 
-            # Prepare prompts using the user's instructions
+            # Prompt preparation using the user's instructions
             instructions_template = self.instruction_entry.get("1.0", tk.END).strip()
             prompts = processor.prepare_prompts(instructions_template, selected_data)
             if not prompts:
                 self.update_status("No prompts to process.")
                 return
-            # Proceed with calling the API
+            # Calling the API
             self.call_api_and_process_responses(prompts, df, file_path)
 
         except Exception as e:
@@ -349,6 +349,7 @@ class ExcelAnalyzerApp(tk.Tk):
         except Exception as e:
             messagebox.showerror("Error", f"Failed to save the output file:\n{e}")
             self.update_status("")
+
 
 if __name__ == "__main__":
     app = ExcelAnalyzerApp()
