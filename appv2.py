@@ -17,15 +17,6 @@ from tkinter import ttk, filedialog, messagebox
 # Compare the names in the two lists and reply with "True" if they match or "False" if they do not. For each pair, provide the result in the format "name1 - name2: result".
 # For the given name, determine if it exists in the provided list of names. Respond with 'True' if it does, and 'False' if it does not. Provide the output in the format 'name: True/False'.
 
-class JSONFormatter(logging.Formatter):
-    def format(self, record):
-        log_record = {
-            'time': self.formatTime(record, self.datefmt),
-            'level': record.levelname,
-            'logger': record.name,
-            'message': record.getMessage(),
-        }
-        return json.dumps(log_record)
 
 def setup_json_logging():
     logger = logging.getLogger()
@@ -46,6 +37,17 @@ MAX_INPUT_TOKENS = 2048
 load_dotenv(dotenv_path='./config/.env')
 api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=api_key)
+
+
+class JSONFormatter(logging.Formatter):
+    def format(self, record):
+        log_record = {
+            'time': self.formatTime(record, self.datefmt),
+            'level': record.levelname,
+            'logger': record.name,
+            'message': record.getMessage(),
+        }
+        return json.dumps(log_record)
 
 
 class DataProcessor:
@@ -241,7 +243,6 @@ class ExcelAnalyzerApp(tk.Tk):
         logging.info("Analysis complete.")
         self.reset_progress()
 
-
     def read_data_file(self, file_path):
             file_ext = os.path.splitext(file_path)[1].lower()
             try:
@@ -299,7 +300,6 @@ class ExcelAnalyzerApp(tk.Tk):
         self.center_window(popup)
         popup.wait_window()
         return selected_columns
-
 
     def center_window(self, window):
         window.update_idletasks()
