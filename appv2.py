@@ -62,12 +62,9 @@ class DataProcessor:
         prompts = []
         data_records = selected_data.to_dict(orient='records')
         for idx, record in enumerate(data_records):
-            if not record.get('Names1') or not record.get('Names2'):
-                logging.warning(f"Missing data in row {idx}: {record}")
-                prompts.append("No data to compare.")
-                continue
             try:
                 prompt = instructions.format(**record)
+                logging.debug(f"Prompt for index {idx}:\n{prompt}\n")
             except KeyError as e:
                 missing_key = str(e).strip("'")
                 messagebox.showerror("Error", f"Column '{missing_key}' not found in the selected data.")
@@ -134,10 +131,9 @@ class ExcelAnalyzerApp(tk.Tk):
         self.template_var = tk.StringVar()
         self.template_var.set("Select a template")
         templates = [
-            "Review the text in {Column1} and {Column2} and categorize if each row represents an incident or a service request as per the ITIL framework. Use the words 'incident' and 'service request' only. Do not explain your answer.",
+            "Review the following text and categorize it as either an 'incident' or a 'service request' according to the ITIL framework. Respond with only 'incident' or 'service request'. Do not explain your answer. Summary: {Summary}, Description: {Description}",
             "Compare the name '{Names1}' with '{Names2}'. If they are the same person (even if the first name and last name are inverted), reply with the name from '{Names1}'. If they are different, reply with 'different person'. Do not explain your answer.",
             "Compare {Column1} with {Column2} and note differences",
-
         ]
         self.template_selection = ttk.Combobox(self, textvariable=self.template_var, values=templates, state="readonly")
         self.template_selection.pack(pady=5)
@@ -324,8 +320,9 @@ class ExcelAnalyzerApp(tk.Tk):
     def call_openai_api(idx, prompt, return_dict, model_name):
         api_client = OpenAIAPIClient(model_name)
         reply = api_client.get_response(prompt)
+        logging.debug(f"Response for index {idx}:\n{reply}\n")
         return_dict[idx] = reply
-    
+
     def update_status(self, message):
         self.status_label.config(text=message)
 
